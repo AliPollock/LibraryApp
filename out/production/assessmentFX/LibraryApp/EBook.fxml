@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LibraryApp.EBookController">
+    <children>
+        <VBox prefHeight="400.0" prefWidth="600.0">
+            <children>
+                <TextField fx:id="title" onAction="#title" promptText="Title">
+                    <padding>
+                        <Insets bottom="20.0" left="40.0" right="40.0" top="20.0" />
+                    </padding>
+                </TextField>
+                <TextField fx:id="author" layoutX="10.0" layoutY="10.0" onAction="#author" promptText="Author">
+                    <padding>
+                        <Insets bottom="20.0" left="40.0" right="40.0" top="20.0" />
+                    </padding>
+                </TextField>
+                <TextField fx:id="publisher" layoutX="10.0" layoutY="67.0" onAction="#publisher" promptText="Publisher">
+                    <padding>
+                        <Insets bottom="20.0" left="40.0" right="40.0" top="20.0" />
+                    </padding>
+                </TextField>
+                <TextField fx:id="date" layoutX="10.0" layoutY="47.0" onAction="#date" promptText="Publication Date">
+                    <padding>
+                        <Insets bottom="20.0" left="40.0" right="40.0" top="20.0" />
+                    </padding>
+                </TextField>
+                <TextField fx:id="lib" layoutX="10.0" layoutY="47.0" onAction="#lib" promptText="Library">
+                    <padding>
+                        <Insets bottom="20.0" left="40.0" right="40.0" top="20.0" />
+                    </padding>
+                </TextField>
+                <TextField fx:id="ISBN" layoutX="10.0" layoutY="84.0" onAction="#ISBN" promptText="ISBN number">
+                    <padding>
+                        <Insets bottom="20.0" left="40.0" right="40.0" top="20.0" />
+                    </padding>
+                </TextField>
+                <HBox prefHeight="100.0" prefWidth="200.0">
+                    <children>
+                        <Button fx:id="okayButton" alignment="CENTER" mnemonicParsing="false" onAction="#createEBook" text="Okay" textAlignment="CENTER">
+                            <HBox.margin>
+                                <Insets left="200.0" right="50.0" top="15.0" />
+                            </HBox.margin>
+                        </Button>
+                        <Button fx:id="cancelButton" alignment="CENTER" mnemonicParsing="false" onAction="#cancel" text="Cancel" textAlignment="RIGHT">
+                            <HBox.margin>
+                                <Insets left="50.0" right="150.0" top="15.0" />
+                            </HBox.margin>
+                        </Button>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>
