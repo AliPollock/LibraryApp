@@ -1,4 +1,4 @@
-package LibraryApp;
+package LibraryApp.Models;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -6,20 +6,20 @@ import java.util.Date;
 
 
 public class Library {
+    private int _id;
     private String name;
     private ArrayList<LibraryItem> catalogue;
     private ArrayList<EBook> eBookCatalogue;
     private ArrayList<PhysicalBook> physicalCatalogue;
     private ArrayList<Admin> admins;
     private ArrayList<User> users;
-    private boolean isOpen; //should remove this from constructors once I have time working
     private String openHours;
     private String location;
     private ArrayList<Author> authors;
 
-    public Library(String name, boolean isOpen, String openHours, String location) {
+    public Library(String name, String openHours, String location) {
+        this._id = (int) (Math.random()*1000*(Math.random()*1000*name.length()));
         this.name = name;
-        this.isOpen = isOpen;
         this.openHours = openHours;
         this.location = location;
         this.catalogue = new ArrayList<>();
@@ -56,9 +56,6 @@ public class Library {
         return this.users;
     }
 
-    public boolean isOpen() {
-        return this.isOpen;
-    }
 
     public String getOpenHours() {
         return this.openHours;
@@ -96,10 +93,6 @@ public class Library {
 
     public void setUsers(ArrayList<User> users) {
         this.users = users;
-    }
-
-    public void setOpen(boolean open) {
-        this.isOpen = open;
     }
 
     public void setOpenHours(String openHours) {
@@ -176,53 +169,6 @@ public class Library {
         return formatter.format(date);
     }
 
-
-    public int checkLatestEdition(EBook searchItem) { //### definitely unsure about this one
-        EBook placeholderEBook = searchItem;
-        for (EBook ebook: this.getEBookCatalogue()) {
-            if (ebook.getName() == searchItem.getName()) {
-                if (ebook.getEdition() > searchItem.getEdition()) {
-                    placeholderEBook = ebook;
-                }
-            }
-        } return placeholderEBook.getEdition();
-    }
-
-    public int checkLatestEdition(PhysicalBook searchItem) { //### definitely unsure about this one
-        PhysicalBook placeholderBook = searchItem;
-        for (PhysicalBook book: this.getPhysicalCatalogue()) {
-            if (book.getName() == searchItem.getName()) {
-                if (book.getEdition() > searchItem.getEdition()) {
-                    placeholderBook = book;
-                }
-            }
-        } return placeholderBook.getEdition();
-    }
-
-    public LibraryItem getNewestEdition(EBook searchItem) { //### definitely unsure about this one
-        EBook placeholderEBook = searchItem;
-        for (EBook ebook: this.getEBookCatalogue()) {
-            if (ebook.getName() == searchItem.getName()) {
-                if (ebook.getEdition() > searchItem.getEdition()) {
-                    placeholderEBook = ebook;
-                }
-            }
-        } return placeholderEBook;
-    }
-
-    public LibraryItem getNewestEdition(PhysicalBook searchItem) { //### definitely unsure about this one
-        PhysicalBook placeholderBook = searchItem;
-        for (PhysicalBook book: this.getPhysicalCatalogue()) {
-            if (book.getName() == searchItem.getName()) {
-                if (book.getEdition() > searchItem.getEdition()) {
-                    placeholderBook = book;
-                }
-            }
-        } return placeholderBook;
-    }
-
-
-
     //ISBN Methods and new field
 
     //    public ArrayList browse() {}
@@ -235,4 +181,53 @@ public class Library {
     //          book.changeOverdueStatus();
     //      }
     // }
+
+
+//    public int checkLatestEdition(EBook searchItem) { //### definitely unsure about this one
+//        EBook placeholderEBook = searchItem;
+//        for (EBook ebook: this.getEBookCatalogue()) {
+//            if (ebook.getName() == searchItem.getName()) {
+//                if (ebook.getEdition() > searchItem.getEdition()) {
+//                    placeholderEBook = ebook;
+//                }
+//            }
+//        } return placeholderEBook.getEdition();
+//    }
+//
+//    public int checkLatestEdition(PhysicalBook searchItem) { //### definitely unsure about this one
+//        PhysicalBook placeholderBook = searchItem;
+//        for (PhysicalBook book: this.getPhysicalCatalogue()) {
+//            if (book.getName() == searchItem.getName()) {
+//                if (book.getEdition() > searchItem.getEdition()) {
+//                    placeholderBook = book;
+//                }
+//            }
+//        } return placeholderBook.getEdition();
+//    }
+//
+//    public LibraryItem getNewestEdition(EBook searchItem) { //### definitely unsure about this one
+//        EBook placeholderEBook = searchItem;
+//        for (EBook ebook: this.getEBookCatalogue()) {
+//            if (ebook.getName() == searchItem.getName()) {
+//                if (ebook.getEdition() > searchItem.getEdition()) {
+//                    placeholderEBook = ebook;
+//                }
+//            }
+//        } return placeholderEBook;
+//    }
+//
+//    public LibraryItem getNewestEdition(PhysicalBook searchItem) { //### definitely unsure about this one
+//        PhysicalBook placeholderBook = searchItem;
+//        for (PhysicalBook book: this.getPhysicalCatalogue()) {
+//            if (book.getName() == searchItem.getName()) {
+//                if (book.getEdition() > searchItem.getEdition()) {
+//                    placeholderBook = book;
+//                }
+//            }
+//        } return placeholderBook;
+//    }
+
+
+
+
 }

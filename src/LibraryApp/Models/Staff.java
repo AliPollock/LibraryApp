@@ -1,4 +1,4 @@
-package LibraryApp;
+package LibraryApp.Models;
 
 public class Staff extends User {
     public Staff(String name, Library library, String password) {

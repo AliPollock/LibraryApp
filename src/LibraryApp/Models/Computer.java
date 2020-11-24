@@ -1,4 +1,4 @@
-package LibraryApp;
+package LibraryApp.Models;
 
 public class Computer {
 //    public static final int TotalNumber;

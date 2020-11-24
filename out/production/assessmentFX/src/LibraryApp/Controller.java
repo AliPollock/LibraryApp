@@ -3,87 +3,72 @@ package LibraryApp;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
-import LibraryApp.Author;
-import LibraryApp.Library;
-import LibraryApp.LibraryItem;
-import LibraryApp.PhysicalBook;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Optional;
+import java.net.URL;
+import java.sql.SQLException;
+import java.util.ResourceBundle;
 
-public class Controller {
+public class Controller implements Initializable {
 
+    @FXML private Parent root;
+    @FXML private TextField search;
+
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            DatabaseHandler.getInstance();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public Controller() {
+    }
+
+    //Change scene classes
     @FXML
-    private Parent root;
+    public void createBook(ActionEvent event) throws IOException {
+        Parent createBookParent = FXMLLoader.load(getClass().getResource("fxmlFiles/CreateBook.fxml"));
+        Scene createBookScene = new Scene(createBookParent);
 
-    @FXML
-    private TextField libraryName;
-    @FXML
-    private TextField search;
-    @FXML
-    private ArrayList<LibraryItem> catalogue;
-    @FXML
-    private ListView<LibraryItem> catalogueView;
-    @FXML
-    private TextArea bookDetailsTextArea;
-
-    public void initialize() {
-        Library strathclyde = new Library("strathclyde");
-        Author Michael = new Author("Michael Kolling");
-        PhysicalBook Bluej1 = new PhysicalBook("BlueJ1", Michael, "10/10/2000","infomorma",  strathclyde, "3533424221", 5);
-        PhysicalBook Bluej2 = new PhysicalBook("BlueJ2", Michael, "10/10/2000","infomorma",  strathclyde, "3533424222", 4);
-        PhysicalBook Bluej3 = new PhysicalBook("BlueJ3", Michael, "10/10/2000","infomorma",  strathclyde, "3533424223", 7);
-        PhysicalBook Bluej4 = new PhysicalBook("BlueJ4", Michael, "10/10/2000","infomorma",  strathclyde, "3533424224", 3);
-        PhysicalBook Bluej5 = new PhysicalBook("BlueJ5", Michael, "10/10/2000","infomorma",  strathclyde, "3533424225", 2);
-
-        catalogue = new ArrayList<>();
-        catalogue.add(Bluej1);
-        catalogue.add(Bluej2);
-        catalogue.add(Bluej3);
-        catalogue.add(Bluej4);
-        catalogue.add(Bluej5);
-
-        catalogueView.getItems().setAll(catalogue);
-        catalogueView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-
+        Stage window = (Stage) root.getScene().getWindow();
+        window.setScene(createBookScene);
+        window.show();
     }
 
     @FXML
-    public void handleClickCatalogueView() {
-        LibraryItem item = catalogueView.getSelectionModel().getSelectedItem();
-        bookDetailsTextArea.setText(item.getName());
-    }
+    public void editBook(ActionEvent event) throws IOException {
+        Parent createBookParent = FXMLLoader.load(getClass().getResource("fxmlFiles/EditBook.fxml"));
+        Scene editBookScene = new Scene(createBookParent);
 
+        Stage window = (Stage) root.getScene().getWindow();
+        window.setScene(editBookScene);
+        window.show();
+    }
 
     @FXML
     public void createLibrary() throws IOException {
-        Parent createBookParent = FXMLLoader.load(getClass().getResource("library.fxml"));
+        Parent createBookParent = FXMLLoader.load(getClass().getResource("fxmlFiles/Library.fxml"));
         Scene createBookScene = new Scene(createBookParent);
 
         Stage window = (Stage) root.getScene().getWindow();
         window.setScene(createBookScene);
         window.show();
     }
+
 
     @FXML
-    public void createBook(ActionEvent event) throws IOException {
-        Parent createBookParent = FXMLLoader.load(getClass().getResource("book.fxml"));
-        Scene createBookScene = new Scene(createBookParent);
-
-        Stage window = (Stage) root.getScene().getWindow();
-        window.setScene(createBookScene);
-        window.show();
-    }
-
     public void createEBook(ActionEvent actionEvent) throws IOException {
-        Parent createBookParent = FXMLLoader.load(getClass().getResource("Ebook.fxml"));
+        Parent createBookParent = FXMLLoader.load(getClass().getResource("fxmlFiles/CreateEBook.fxml"));
         Scene createBookScene = new Scene(createBookParent);
 
         Stage window = (Stage) root.getScene().getWindow();
@@ -91,7 +76,49 @@ public class Controller {
         window.show();
     }
 
+
+    public void updateBook(ActionEvent actionEvent) {
+//        databaseHandler.execAction(); // is this the best way to update? or should I have a separate view
+    }
+
+    public void updateEBook(ActionEvent actionEvent) {
+    }
+
+    public void updateLibrary(ActionEvent actionEvent) {
+    }
+
+    public void deleteBook(ActionEvent actionEvent) {
+    }
+
+    public void deleteEBook(ActionEvent actionEvent) {
+    }
+
+    public void deleteLibrary(ActionEvent actionEvent) {
+    }
     @FXML
-    public void search() {
+    public void search() throws IOException { //gets ResultsController and passes search data field to search field in ResultsController then sets a new scene
+        String searchString = this.search.getText();
+        System.out.println(searchString);
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("fxmlFiles/Results.fxml"));
+        Parent createBookParent = loader.load();
+
+        Scene createBookScene = new Scene(createBookParent);
+
+        ResultsController newController = loader.getController();
+
+        newController.setSearch(this.search.getText());
+
+        Stage window = (Stage) root.getScene().getWindow();
+        window.setScene(createBookScene);
+        window.show();
+    }
+
+
+    public void editEBook(ActionEvent actionEvent) {
+    }
+
+
+    public void editLibrary(ActionEvent actionEvent) {
     }
 }

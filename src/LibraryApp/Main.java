@@ -5,11 +5,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
+
 
 public class Main extends Application {
 
@@ -19,17 +15,27 @@ public class Main extends Application {
     @Override
     public void start(Stage window) throws Exception {
 
-        DatabaseHandler databaseHandler = new DatabaseHandler();
 //        databaseHandler.createConnection();
-        Parent root = FXMLLoader.load(getClass().getResource("Home.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("fxmlFiles/Home.fxml"));
         window.setTitle("Library Application");
         window.setScene(new Scene(root));
         window.show();
     }
 
+    @Override
+    public void init() throws Exception {
+        super.init();
+        DatabaseHandler.getInstance().openDatabase();
+    }
+
+    @Override
+    public void stop() throws Exception {
+        super.stop();
+        DatabaseHandler.getInstance().closeDatabase();
+    }
+
     public static void main(String[] args) {
         launch(args);
-
     }
 
 

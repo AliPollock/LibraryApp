@@ -1,4 +1,4 @@
-package LibraryApp;
+package LibraryApp.Models;
 
 import java.util.ArrayList;
 
@@ -98,12 +98,12 @@ public abstract class User {
         return notifications;
     }
 
-    public void accessEBook(EBook eBook){ //###needs logic added
-        if (eBook.getCurrentReaders() != eBook.getMaximumConcurrentUsers())
-        eBook.setAccessExpires();
-        eBook.changeCurrentReaders(1);
-        eBook.incrementTimesRead();
-    }
+//    public void accessEBook(EBook eBook){ //###needs logic added
+//        if (eBook.getCurrentReaders() != eBook.getMaximumConcurrentUsers())
+//        eBook.setAccessExpires();
+//        eBook.changeCurrentReaders(1);
+//        eBook.incrementTimesRead();
+//    }
     public void endAccessEBook(EBook eBook) {
         if (this.currentEBooks.contains(eBook)) {
             this.currentEBooks.remove(eBook);

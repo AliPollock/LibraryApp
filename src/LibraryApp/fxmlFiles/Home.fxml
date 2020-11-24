@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="403.0" prefWidth="817.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LibraryApp.Controller">
+   <top>
+       <MenuBar>
+           <Menu text="Add New">
+               <MenuItem onAction="#createBook" text="Physical Book" />
+               <SeparatorMenuItem />
+               <MenuItem onAction="#createEBook" text="EBook" />
+               <SeparatorMenuItem />
+               <MenuItem onAction="#createLibrary" text="Library" />
+           </Menu>
+           <Menu text="Edit">
+               <MenuItem onAction="#editBook" text="Physical Book" />
+               <SeparatorMenuItem />
+               <MenuItem onAction="#editEBook" text="EBook" />
+               <SeparatorMenuItem />
+               <MenuItem onAction="#editLibrary" text="Library" />
+           </Menu>
+       </MenuBar>
+   </top>
+   <left>
+      <ListView>
+      </ListView>
+   </left>
+    <center>
+        <TextArea fx:id="bookDetailsTextArea" />
+    </center>
+
+   <bottom>
+        <VBox>
+           <children>
+              <Button mnemonicParsing="false" onAction="#search" text="Search" BorderPane.alignment="CENTER">
+                 <graphic>
+                    <TextField fx:id="search" />
+                 </graphic>
+              </Button>
+           </children>
+        </VBox>
+   </bottom>
+</BorderPane>

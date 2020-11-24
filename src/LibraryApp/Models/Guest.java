@@ -1,4 +1,4 @@
-package LibraryApp;
+package LibraryApp.Models;
 
 public class Guest extends User {
 //    private String expiryDate;
