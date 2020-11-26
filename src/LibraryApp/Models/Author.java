@@ -7,7 +7,12 @@ public class Author {
     private String name;
     private ArrayList<LibraryItem> authorWorks;
 
-    public Author(String name) {
+    public Author(int _id, String name) { //already exists in db author
+        this._id = _id;
+        this.name = name;
+    }
+
+    public Author(String name) { //create new author
         this._id = (int) (Math.random()*1000*(Math.random()*1000*name.length()));
         this.name = name;
         this.authorWorks = new ArrayList<>();
@@ -16,6 +21,10 @@ public class Author {
     @Override
     public String toString() {
         return "(Author: " + name + ")";
+    }
+
+    public int get_id() {
+        return _id;
     }
 
     public String getName() {

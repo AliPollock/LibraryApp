@@ -9,7 +9,7 @@ public abstract class LibraryItem {
     private String publicationDate;
     private String publisher;
     private ArrayList<String> topics;
-    private static int timesRead = 0;
+    private int timesRead;
     private String bio;
     private String iSBN;
 
@@ -22,6 +22,7 @@ public abstract class LibraryItem {
         this.topics = new ArrayList<>();
         this.bio = null;
         this.iSBN = iSBN;
+        this.timesRead = 0;
     }
 
 
@@ -49,7 +50,6 @@ public abstract class LibraryItem {
         return publisher;
     }
 
-
     public ArrayList<String> getTopics() {
         return topics;
     }
@@ -62,7 +62,7 @@ public abstract class LibraryItem {
         return outputString;
     }
 
-    public static int getTimesRead() {
+    public int getTimesRead() {
         return timesRead;
     }
 
@@ -120,8 +120,8 @@ public abstract class LibraryItem {
         this.topics = topics;
     }
 
-    public static void setTimesRead(int timesRead) {
-        LibraryItem.timesRead = timesRead;
+    public void setTimesRead(int timesRead) {
+        this.timesRead = timesRead;
     }
 
     public void setiSBN(String iSBN) {

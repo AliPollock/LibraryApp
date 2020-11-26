@@ -2,14 +2,11 @@ package LibraryApp.Models;
 
 public class Admin extends User {
 
-    public Admin(String name, Library library, String password) {
-        super(name, library, password);
+    public Admin(String name, String password) {
+        super(name, password);
         this.isAdmin = true;
         this.isMember = true;
         this.isStaff = true;
-        this.library = library;
-        double num = (Math.random() * ((999-1) + 1)) + 1;
-        this.userID = "adm" + "3" + Double.toString(num) + name.substring(0,1);
         this.maxBooksAllowed = 30;
     }
 

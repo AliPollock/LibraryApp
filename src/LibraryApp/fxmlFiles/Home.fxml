@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="403.0" prefWidth="817.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LibraryApp.Controller">
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="403.0" prefWidth="817.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LibraryApp.HomeController">
    <top>
        <MenuBar>
            <Menu text="Add New">
@@ -11,14 +11,23 @@
                <SeparatorMenuItem />
                <MenuItem onAction="#createEBook" text="EBook" />
                <SeparatorMenuItem />
-               <MenuItem onAction="#createLibrary" text="Library" />
+               <MenuItem onAction="#addUser" text="User" />
            </Menu>
            <Menu text="Edit">
                <MenuItem onAction="#editBook" text="Physical Book" />
                <SeparatorMenuItem />
                <MenuItem onAction="#editEBook" text="EBook" />
                <SeparatorMenuItem />
-               <MenuItem onAction="#editLibrary" text="Library" />
+               <MenuItem text="Library" />
+           </Menu>
+           <Menu text="Show">
+               <MenuItem onAction="#showAllBooks" text="All Physical Books" />
+               <SeparatorMenuItem />
+               <MenuItem onAction="#showAllEBooks" text="All EBooks" />
+               <SeparatorMenuItem />
+               <MenuItem onAction="#showAllLibraryItems" text="All Library Items" />
+               <SeparatorMenuItem />
+               <MenuItem onAction="#showAllUsers" text="All Users" />
            </Menu>
        </MenuBar>
    </top>

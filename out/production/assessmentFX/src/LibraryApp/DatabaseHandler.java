@@ -1,6 +1,9 @@
 package LibraryApp;
 
+import LibraryApp.Models.*;
+
 import java.sql.*;
+import java.util.ArrayList;
 
 
 public final class DatabaseHandler {
@@ -12,7 +15,8 @@ public final class DatabaseHandler {
 
 
     private DatabaseHandler() throws SQLException {
-//        createConnection();
+//        clearDatabase();
+        createConnection();
         conn = DriverManager.getConnection("jdbc:sqlite:C:\\assessmentFX\\db\\library.db");
     }
 
@@ -27,27 +31,46 @@ public final class DatabaseHandler {
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:C:\\assessmentFX\\db\\library.db");
                 Statement statement = conn.createStatement())
         {
-            statement.execute("DROP TABLE IF EXISTS PBooks" );
             statement.execute("CREATE TABLE IF NOT EXISTS PBooks " +
-                    "(_id TEXT PRIMARY INTEGER, name TEXT, author TEXT, publicationDate TEXT, publisher TEXT, topics TEXT, " +
-                    "timesRead INTEGER, bio TEXT, isbn TEXT, currentUser TEXT, isOnLoan INTEGER, isOverdue INTEGER, overDueCharge REAL, " +
+                    "(_id INTEGER PRIMARY KEY, name TEXT, author TEXT, publicationDate TEXT, publisher TEXT, topics TEXT, " +
+                    "timesRead INTEGER, bio TEXT, isbn TEXT, currentUser INTEGER, isOnLoan INTEGER, isOverdue INTEGER, overDueCharge REAL, " +
                     "dueDate TEXT, damages TEXT)");
-            statement.execute("DROP TABLE IF EXISTS Libraries" );
-            statement.execute("CREATE TABLE IF NOT EXISTS Libraries " +
-                    "(_id TEXT PRIMARY KEY, name TEXT, isOpen INTEGER, openHours TEXT, location TEXT)");
-            statement.execute("DROP TABLE IF EXISTS Authors" );
+//            statement.execute("CREATE TABLE IF NOT EXISTS Libraries " +
+//                    "(_libraryId INTEGER PRIMARY KEY, name TEXT, isOpen INTEGER, openHours TEXT, location TEXT)");
             statement.execute("CREATE TABLE IF NOT EXISTS Authors " +
-                    "(name TEXT, isbn TEXT)");
-            statement.execute("DROP TABLE IF EXISTS EBooks" );
+                    "(_authorId INTEGER PRIMARY KEY, authorName TEXT)");
             statement.execute("CREATE TABLE IF NOT EXISTS EBooks " +
-                    "(name TEXT, author TEXT, publicationDate TEXT, publisher TEXT, library TEXT, isbn TEXT, topics TEXT, " +
-                    "timesRead INTEGER, edition INTEGER, bio TEXT, value REAL, keywords TEXT, currentReaders INTEGER, url TEXT, openAccess INTEGER, accessExpiresHours TEXT, maximumConcurrentUsers INTEGER, physicalCopyLink TEXT)");
+                    "(_eBookId INTEGER PRIMARY KEY, name TEXT, author TEXT, publicationDate TEXT, publisher TEXT, topics TEXT, timesRead INTEGER, bio TEXT," +
+                    "isbn TEXT, currentUsers INTEGER, accessExpiresHours TEXT)");
+            statement.execute("CREATE TABLE IF NOT EXISTS Computers " +
+                    "(_computerId INTEGER PRIMARY KEY, isInUse INTEGER, location TEXT)");
+            statement.execute("CREATE TABLE IF NOT EXISTS Users " +
+                    "(_userId INTEGER PRIMARY KEY, userName TEXT, password TEXT, isAdmin INTEGER, libraryFees REAL, type TEXT)");
             statement.close();
             conn.close();
         } catch(SQLException e) {
             System.out.println("error connecting to the database, database already exists, ensure app folder is in the C root folder of the C drive");
         }
     }
+
+
+    public void clearDatabase(){
+        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:C:\\assessmentFX\\db\\library.db");
+             Statement statement = conn.createStatement())
+        {
+            statement.execute("DROP TABLE IF EXISTS PBooks" );
+            statement.execute("DROP TABLE IF EXISTS Authors" );
+            statement.execute("DROP TABLE IF EXISTS EBooks" );
+            statement.execute("DROP TABLE IF EXISTS Computers" );
+            statement.execute("DROP TABLE IF EXISTS Users" );
+            statement.execute("DROP TABLE IF EXISTS Libraries" );
+            statement.close();
+            conn.close();
+        } catch(SQLException e) {
+            System.out.println("error connecting to the database, database already exists, ensure app folder is in the C root folder of the C drive");
+        }
+    }
+
 
     public ResultSet execQuery(String query) {
         try {
@@ -98,111 +121,61 @@ public final class DatabaseHandler {
     }
 
 
-    //    public void addPBook(String name, String author, String publicationDate, String publisher, String library, int noCopies, String isbn){
-//        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:C:\\assessmentFX\\db\\library.db");)
-//        {
-//            String sql = "INSERT INTO PBooks (name, author, publicationDate, publisher, library, noCopies, isbn, topics, timesRead, edition, bio, value, keywords, isOnLoan, isOverdue, overDueCharge, copiesInStock, dueDate, url, eBookVersionLink, isDamaged) " +
-//                    "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-//            PreparedStatement statement = conn.prepareStatement(sql);
-//            statement.setString(1, name);
-//            statement.setString(2, author);
-//            statement.setString(3, publicationDate);
-//            statement.setString(4, publisher);
-//            statement.setString(5, library);
-//            statement.setInt(6, noCopies);
-//            statement.setString(7, isbn);
-//            statement.setString(8, null);
-//            statement.setInt(9, 0);
-//            statement.setInt(10, 0);
-//            statement.setString(11, null);
-//            statement.setDouble(12, 0);
-//            statement.setString(13, null);
-//            statement.setInt(14, 0);
-//            statement.setInt(15, 0);
-//            statement.setDouble(16, 0);
-//            statement.setInt(17, noCopies);
-//            statement.setString(18, null);
-//            statement.setString(19, null);
-//            statement.setString(20, null);
-//            statement.setInt(21, 0);
-//
-//
-//            int rowsInserted = statement.executeUpdate();
-//            if (rowsInserted > 0) {
-//                System.out.println("A new user was inserted successfully!");
-//            }
-//            statement.close();
-//            conn.close();
-//        } catch(SQLException e) {
-//            System.out.println("issue inserting PBook into database");
-//        }
-//    }
+    public Author checkIfAuthorExists(String bookAuthor){
 
-//    public void addEBook(String name, String author, String publicationDate, String publisher, String library, String isbn){
-//        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:C:\\assessmentFX\\db\\library.db");)
-//        {
-//            String sql = "INSERT INTO EBooks (name, author, publicationDate, publisher, library, isbn, topics, timesRead, edition, bio, value, keywords, currentReaders, url, openAccess, accessExpiresHours, maximumConcurrentUsers, physicalCopyLink) " +
-//                    "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-//            PreparedStatement statement = conn.prepareStatement(sql);
-//            statement.setString(1, name);
-//            statement.setString(2, author);
-//            statement.setString(3, publicationDate);
-//            statement.setString(4, publisher);
-//            statement.setString(5, library);
-//            statement.setString(6, isbn);
-//            statement.setString(7, null);
-//            statement.setInt(8, 0);
-//            statement.setInt(9, 0);
-//            statement.setString(10, null);
-//            statement.setDouble(11, 0);
-//            statement.setString(12, null);
-//            statement.setInt(13, 0);
-//            statement.setString(14, null);
-//            statement.setInt(15, 0);
-//            statement.setString(16, null);
-//            statement.setInt(17, 10);
-//            statement.setString(18, null);
-//
-//
-//            int rowsInserted = statement.executeUpdate();
-//            if (rowsInserted > 0) {
-//                System.out.println("A new user was inserted successfully!");
-//            }
-//            statement.close();
-//            conn.close();
-//        } catch(SQLException e) {
-//            System.out.println("issue inserting EBook into database");
-//        }
-//    }
-//
-//
-//    public void addLibrary(String name, boolean isOpen, String openHours, String location){
-//        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:C:\\assessmentFX\\db\\library.db");)
-//        {
-//            String sql = "INSERT INTO Libraries (name, isOpen, openHours, location) " +
-//                    "VALUES(?,?,?,?)";
-//
-//            int isOpenInt;
-//            if(isOpen == true) {
-//                isOpenInt = 1;
-//            } else {
-//                isOpenInt = 0;
-//            }
-//
-//            PreparedStatement statement = conn.prepareStatement(sql);
-//            statement.setString(1, name);
-//            statement.setInt(2, isOpenInt);
-//            statement.setString(3, openHours);
-//            statement.setString(4, location);
-//
-//            int rowsInserted = statement.executeUpdate();
-//            if (rowsInserted > 0) {
-//                System.out.println("A new user was inserted successfully!");
-//            }
-//            statement.close();
-//            conn.close();
-//        } catch(SQLException e) {
-//            System.out.println("issue inserting EBook into database");
-//        }
-//    }
+        String sqlAuthorQuery = "SELECT _authorId, authorName FROM Authors WHERE authorName = '" + bookAuthor + "'";
+        ResultSet existingAuthor = execQuery(sqlAuthorQuery);
+
+
+        Author authorInstance =null;
+        String authorName = null;
+        int existingAuthorId = 0;
+
+        try {
+            while (existingAuthor.next()) {
+                existingAuthorId = existingAuthor.getInt("_authorId");
+                authorName = existingAuthor.getString("authorName");
+            }
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+
+
+        if(authorName != null) { //author already exists in db
+            authorInstance = new Author(existingAuthorId, bookAuthor);
+        } else { //author doesn't exist in db
+            authorInstance = new Author(bookAuthor);
+            String sqlAuthorString = "INSERT INTO Authors (_authorId, authorName) Values (" + authorInstance.get_id() + ", '" + authorInstance.getName() + "')";
+            execAction(sqlAuthorString);
+        }
+
+        return authorInstance;
+    }
+
+    public boolean checkIfUserExists(String user) throws SQLException {
+
+        String sqlCheckUser = "SELECT userName, password FROM Users WHERE userName = '" + user + "'";
+        ResultSet existingUser = execQuery(sqlCheckUser);
+
+
+        User userInstance =null;
+        String userName = null;
+
+        try {
+            while (existingUser.next()) {
+                userName = existingUser.getString("userName");
+            }
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+
+
+        if(userName != null) { //user exists in db
+            return true;
+        } else {
+            return false; //user doesn't exist in db
+        }
+
+    }
+
 }

@@ -2,16 +2,15 @@ package LibraryApp.Models;
 
 import java.util.ArrayList;
 
-public abstract class User {
+public class User {
     private String name;
-    protected String userID;
+    protected int _userId;
     protected boolean isAdmin;
     protected boolean isMember;
     protected boolean isStaff;
     private double libraryFees;
-    protected Library library;
     private ArrayList<LibraryItem> booksOnLoan;
-    private ArrayList<EBook> currentEBooks;
+    private ArrayList<EBook> currentEBooks; //this is not yet connected with ebook class
     private ArrayList<LibraryItem> requestedBooks;
     private ArrayList<LibraryItem> bookHistory;
     protected int loanPeriod;
@@ -20,14 +19,30 @@ public abstract class User {
     private ArrayList <String> notifications;
 
 
-    public User(String name, Library library, String password) {
+    public User(String name, String password) { //instantiating new user
+        this._userId = (int) (Math.random()*1000*(Math.random()*1000*name.length()));;
         this.name = name;
-        this.userID = "";
         this.isAdmin = false;
         this.isMember = false;
         this.isStaff = false;
         this.libraryFees = 0.0;
-        this.library = library;
+        this.booksOnLoan = new ArrayList<>();
+        this.currentEBooks = null;
+        this.requestedBooks = new ArrayList<>();
+        this.bookHistory = new ArrayList<>();
+        this.loanPeriod = 42;
+        this.maxBooksAllowed = 15;
+        this.password = password;
+        this.notifications = new ArrayList<>();
+    }
+
+    public User( int _userId, String name, String password) { //instantiating user that exists in the database
+        this._userId = _userId;
+        this.name = name;
+        this.isAdmin = false;
+        this.isMember = false;
+        this.isStaff = false;
+        this.libraryFees = 0.0;
         this.booksOnLoan = new ArrayList<>();
         this.currentEBooks = null;
         this.requestedBooks = new ArrayList<>();
@@ -42,8 +57,8 @@ public abstract class User {
         return name;
     }
 
-    public String getUserID() {
-        return userID;
+    public int getUserID() {
+        return _userId;
     }
 
     public boolean isAdmin() {
@@ -58,8 +73,12 @@ public abstract class User {
         return isStaff;
     }
 
-    public Library getLibrary() {
-        return library;
+    public int get_userId() {
+        return _userId;
+    }
+
+    public void set_userId(int _userId) {
+        this._userId = _userId;
     }
 
     public ArrayList<LibraryItem> getBooksOnLoan() {

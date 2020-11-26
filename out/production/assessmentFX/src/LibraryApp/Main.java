@@ -15,7 +15,6 @@ public class Main extends Application {
     @Override
     public void start(Stage window) throws Exception {
 
-//        databaseHandler.createConnection();
         Parent root = FXMLLoader.load(getClass().getResource("fxmlFiles/Home.fxml"));
         window.setTitle("Library Application");
         window.setScene(new Scene(root));

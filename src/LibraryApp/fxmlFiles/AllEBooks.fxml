@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="root" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LibraryApp.ResultsController">
+<AnchorPane fx:id="root" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LibraryApp.AllEBooksController">
     <children>
         <BorderPane prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <center>
@@ -16,15 +19,13 @@
                         <TableColumn fx:id="authorCol" prefWidth="75.0" text="Author" />
                         <TableColumn fx:id="publisherCol" prefWidth="75.0" text="Publisher" />
                         <TableColumn fx:id="topicsCol" prefWidth="75.0" text="Topics" />
-                        <TableColumn fx:id="availabilityCol" prefWidth="75.0" text="Availability" />
                     </columns>
                 </TableView>
             </center>
             <top>
                 <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="TOP_CENTER">
                     <buttons>
-                        <Button mnemonicParsing="false" onAction="#home" text="Home" ButtonBar.buttonData="LEFT" />
-                  <Label fx:id="search" text="Label" />
+                        <Button mnemonicParsing="false" text="Home" onAction="#home" ButtonBar.buttonData="LEFT" />
                     </buttons>
                 </ButtonBar>
             </top>

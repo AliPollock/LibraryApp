@@ -4,7 +4,7 @@ package LibraryApp.Models;
 import java.util.ArrayList;
 
 public class EBook extends LibraryItem {
-    private static int currentReaders = 0;
+    private int currentUsers;
     private String accessExpiresHours;
     private static final int maximumConcurrentUsers = 10;
     private ArrayList<Computer> devices;
@@ -13,22 +13,20 @@ public class EBook extends LibraryItem {
         super(name, author, publicationDate, publisher, iSBN);
         this.devices = new ArrayList<Computer>();
         this.accessExpiresHours = null;
+        this.currentUsers = 0;
     }
 
     @Override
     public String toString() {
         return "EBook: " + this.getName() +
-                ", author: " + this.getAuthor() +
-                "EBook{" +
-                "accessExpiresHours=" + accessExpiresHours +
-                ", devices=" + devices +
+                ", author: " + this.getAuthor().getName() +
                 '}';
     }
 
     // getters
 
-    public int getCurrentReaders() {
-        return currentReaders;
+    public int getCurrentUsers() {
+        return currentUsers;
     }
 
 
@@ -52,8 +50,8 @@ public class EBook extends LibraryItem {
 //        this.accessExpiresHours= null;
 //    }
 
-    public static void setCurrentReaders(int currentReaders) {
-        EBook.currentReaders = currentReaders;
+    public void setCurrentUsers(int currentReaders) {
+        this.currentUsers = currentReaders;
     }
 
     public void setAccessExpiresHours(String accessExpiresHours) {
@@ -66,11 +64,11 @@ public class EBook extends LibraryItem {
     // other methods
 
     public void addCurrentReader() {
-        this.currentReaders += 1;
+        this.currentUsers += 1;
     }
 
     public void removeCurrentReader() {
-        this.currentReaders -=1;
+        this.currentUsers -=1;
     }
 
 //    public void addDevice() {}

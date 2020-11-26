@@ -1,7 +1,6 @@
 package LibraryApp;
 
 import LibraryApp.Models.Author;
-import LibraryApp.Models.EBook;
 import LibraryApp.Models.PhysicalBook;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,7 +11,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -22,20 +20,17 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class CreateEBookController implements Initializable {
+public class CreateBookController implements Initializable {
 
     ObservableList editOptionsList = FXCollections.observableArrayList();
 
     @FXML private Parent root;
+
     @FXML private TextField title;
     @FXML private TextField author;
     @FXML private TextField publisher;
     @FXML private TextField date;
     @FXML private TextField ISBN;
-    @FXML private Button cancelButton;
-    @FXML private Button okayButton;
-
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -47,15 +42,12 @@ public class CreateEBookController implements Initializable {
     }
 
 
-
-
-
-    /**The createEbook method takes the fields filled by the createEbook.fxml form and converts them to sql compatible data types,
-     it checks if the author already exists in the database and if not creates a new one. It then creates an Ebook instance and uses this to
-     create a new Ebook database entry
-     **/
+    /**The createBook method takes the fields filled by the createbook.fxml form and converts them to sql compatible data types,
+    it checks if the author already exists in the database and if not creates a new one. It then creates a book instance and uses this to
+    create a new book database entry
+    **/
     @FXML
-    private void createEBook(ActionEvent event) throws SQLException, IOException {
+    private void createBook(ActionEvent event) throws SQLException, IOException {
         String bookTitle = title.getText();
         String bookAuthor = author.getText();
         String bookPublisher = publisher.getText();
@@ -72,12 +64,13 @@ public class CreateEBookController implements Initializable {
 
         Author authorInstance = DatabaseHandler.getInstance().checkIfAuthorExists(bookAuthor);
 
-        EBook book = new EBook(bookTitle, authorInstance, publicationDate, bookPublisher, iSBN);
+        PhysicalBook book = new PhysicalBook(bookTitle, authorInstance, publicationDate, bookPublisher, iSBN);
 
 
-        String sqlString = "INSERT INTO EBooks (_eBookId, name, author, publicationDate, publisher, topics, timesRead, bio, isbn, currentUsers, AccessExpiresHours)" +
-                "VALUES(" + book.get_id() + ", '" + book.getName() + "', '" + book.getAuthor().get_id() + "', '" + book.getPublicationDate() + "', '" + book.getPublisher() + "', '" +
-                book.getTopicsAsString() + "', " + book.getTimesRead() + ", '" + book.getBio() + "', '" + book.getISBN() + "', '" + book.getCurrentUsers() + "', '" + book.getAccessExpiresHours() + "')";
+        String sqlString = "INSERT INTO PBooks (_id, name, author, publicationDate, publisher, topics, timesRead, bio, isbn, currentUser, isOnLoan, isOverdue, overDueCharge, dueDate, damages)" +
+                    "VALUES(" + book.get_id() + ", '" + book.getName() + "', '" + book.getAuthor().get_id() + "', '" + book.getPublicationDate() + "', '" + book.getPublisher() + "', '" +
+                    book.getTopicsAsString() + "', " + book.getTimesRead() + ", '" + book.getBio() + "', '" + book.getISBN() + "', '" + book.getCurrentUser() + "', '" + book.isOnLoan() +
+                    "', '" + book.isOverdue() + "', " + book.getOverDueCharge() + ", '" + book.getDueDate() + "', '" + book.getDamages() + "')";
 
 
         DatabaseHandler.getInstance().execAction(sqlString);
@@ -102,5 +95,6 @@ public class CreateEBookController implements Initializable {
         window.setScene(createBookScene);
         window.show();
     }
-}
 
+
+}
