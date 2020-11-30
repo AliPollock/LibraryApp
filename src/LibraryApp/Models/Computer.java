@@ -21,14 +21,6 @@ public class Computer {
         return isInUse;
     }
 
-    public void set_id(int _id) {
-        this._id = _id;
-    }
-
-    public void setInUse(boolean inUse) {
-        isInUse = inUse;
-    }
-
     public static int getTotalNumber() {
         return TotalNumber;
     }
@@ -37,13 +29,22 @@ public class Computer {
         return numberBeingUsed;
     }
 
+    public String getLocation() {
+        return location;
+    }
+
+    public void set_id(int _id) {
+        this._id = _id;
+    }
+
+    public void setInUse(boolean inUse) {
+        isInUse = inUse;
+    }
+
     public static void setNumberBeingUsed(int numberBeingUsed) {
         Computer.numberBeingUsed = numberBeingUsed;
     }
 
-    public String getLocation() {
-        return location;
-    }
 
     public void setLocation(String location) {
         this.location = location;

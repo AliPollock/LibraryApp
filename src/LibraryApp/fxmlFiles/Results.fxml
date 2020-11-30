@@ -17,6 +17,7 @@
                         <TableColumn fx:id="publisherCol" prefWidth="75.0" text="Publisher" />
                         <TableColumn fx:id="topicsCol" prefWidth="75.0" text="Topics" />
                         <TableColumn fx:id="availabilityCol" prefWidth="75.0" text="Availability" />
+                        <TableColumn fx:id="viewBookCol" prefWidth="75.0"/>
                     </columns>
                 </TableView>
             </center>

@@ -1,8 +1,5 @@
 package LibraryApp;
 
-import LibraryApp.Models.Author;
-import LibraryApp.Models.PhysicalBook;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,12 +20,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+/**
+ * Class that controls the AllBooks page, initializes the data, controls the @FXML fields and actions.
+ */
+
 public class AllBooksController implements Initializable {
 
-    ObservableList<BookModel> bookList = FXCollections.observableArrayList();
 
     @FXML private Parent root;
-
     @FXML public TableView<BookModel> tableView;
     @FXML public TableColumn<BookModel, String> nameCol;
     @FXML public TableColumn<BookModel, String> authorCol;
@@ -36,7 +35,11 @@ public class AllBooksController implements Initializable {
     @FXML public TableColumn<BookModel, String> topicsCol;
     @FXML public TableColumn<BookModel, Boolean> availabilityCol;
     @FXML public TableColumn viewBookCol;
+
     DatabaseHandler handler;
+    ObservableList<BookModel> bookList = FXCollections.observableArrayList();
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -49,6 +52,9 @@ public class AllBooksController implements Initializable {
     }
 
 
+    /**
+     * Method used to initialize table and fill with data for all books returned from Database
+     */
 
     private void loadData() {
         String sql = "SELECT * FROM PBooks INNER JOIN Authors ON PBooks.author=Authors._authorId";
@@ -60,9 +66,9 @@ public class AllBooksController implements Initializable {
                 String publisher = results.getString("publisher");
                 String topics = results.getString("topics");
                 int _id = results.getInt("_id");
-                Boolean booleanAvailability = results.getBoolean("isOnLoan");
+                int booleanAvailability = results.getInt("isOnLoan");
                 String availability = "";
-                if(!booleanAvailability) {
+                if (booleanAvailability == 0) {
                     availability += "available";
                 } else {
                     availability += "On Loan";
@@ -92,7 +98,7 @@ public class AllBooksController implements Initializable {
                         if(empty) {
                             setGraphic(null);
                         } else {
-                            final Button viewBookButton= new Button("viewBookButton");
+                            final Button viewBookButton= new Button("View Book");
                             //listener
                             viewBookButton.setOnAction(event -> {
                                 BookModel bookModel=getTableView().getItems().get(getIndex());
@@ -129,6 +135,12 @@ public class AllBooksController implements Initializable {
 
     // routes
 
+    /**
+     * Home route which creates new scene and links to the Home fxml file.
+     * @param actionEvent An external stimulus from user interface.
+     * @throws IOException Signals that an I/O exception of some sort has occurred. This class is the general class of exceptions produced by failed or interrupted I/O operations.
+     */
+
     public void home(ActionEvent actionEvent) throws IOException {
         Parent createBookParent = FXMLLoader.load(getClass().getResource("fxmlFiles/Home.fxml"));
         Scene createBookScene = new Scene(createBookParent);
@@ -138,31 +150,49 @@ public class AllBooksController implements Initializable {
         window.show();
     }
 
+    /**
+     * Route to view book which creates a new ViewBook Scene, and passes the ID of the book chosen to the new scene.
+     * @param bookModel The Internal class with simple string properties used to represent a Book object.
+     * @throws IOException Signals that an I/O exception of some sort has occurred. This class is the general class of exceptions produced by failed or interrupted I/O operations.
+     * @throws SQLException An exception that provides information on a database access error or other errors.
+     */
 
-    public void viewBook(BookModel bookModel) throws IOException, SQLException { //think for this I may need the book ID which means I'll have to edit the book model so that it contains an id.
+    public void viewBook(BookModel bookModel) throws IOException, SQLException {
         String searchString = bookModel.getName();
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("fxmlFiles/ViewBook.fxml"));
 
-        Parent createBookParent = loader.load();
+        Parent viewBookParent = loader.load();
 
-        Scene createBookScene = new Scene(createBookParent);
+        Scene viewBookScene = new Scene(viewBookParent);
 
-        BookPageController newController = loader.getController();
+        BookPageController viewController = loader.getController();
 
-        newController.viewBook(bookModel.getName(), bookModel.get_id(), bookModel.getAuthor());
+        viewController.viewBook(bookModel.get_id());
 
         Stage window = (Stage) root.getScene().getWindow();
-        window.setScene(createBookScene);
+        window.setScene(viewBookScene);
         window.show();
     }
 
 
-    /** This is the inner class that will display book values in a table **/
+    /**
+     * This is the inner class that will display book values in a table.
+     */
 
     public class BookModel {
         private SimpleStringProperty name, author, publisher, topics, availability;
         private int _id;
+
+        /**
+         * The Class constructor, it accepts string parameters and parses them into simple strings.
+         * @param name The name of the Book.
+         * @param author The name of the Author.
+         * @param publisher The name of the publisher.
+         * @param topics The topics as a coma separated list of strings.
+         * @param availability The availability as a String.
+         * @param _id The unique ID of the book.
+         */
 
         public BookModel(String name, String author, String publisher, String topics, String availability, int _id) {
             this.name = new SimpleStringProperty(name);
@@ -173,9 +203,12 @@ public class AllBooksController implements Initializable {
             this._id = _id;
         }
 
+        //Getters
+
         public String getName() {
             return name.get();
         }
+
 
         public String getAuthor() {
             return author.get();
@@ -196,8 +229,31 @@ public class AllBooksController implements Initializable {
             return availability.get();
         }
 
+
         public int get_id() {
             return _id;
+        }
+
+        //Setters
+
+        public void setName(String name) {
+            this.name.set(name);
+        }
+
+        public void setAuthor(String author) {
+            this.author.set(author);
+        }
+
+        public void setPublisher(String publisher) {
+            this.publisher.set(publisher);
+        }
+
+        public void setTopics(String topics) {
+            this.topics.set(topics);
+        }
+
+        public void setAvailability(String availability) {
+            this.availability.set(availability);
         }
 
         public void set_id(int _id) {

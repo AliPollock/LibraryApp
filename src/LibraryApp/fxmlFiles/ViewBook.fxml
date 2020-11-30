@@ -44,7 +44,7 @@
                <font>
                   <Font size="18.0" />
                </font></Label>
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="86.0" text="View Author">
+            <Button mnemonicParsing="false" onAction="#viewAuthor" prefHeight="25.0" prefWidth="86.0" text="View Author">
                <HBox.margin>
                   <Insets bottom="20.0" right="20.0" top="20.0" />
                </HBox.margin></Button>
@@ -92,10 +92,10 @@
                <children>
                   <Label text="Topics:" GridPane.halignment="LEFT" />
                   <Label text="Bio:" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
-                  <Button alignment="CENTER" mnemonicParsing="false" text="Loan Book" textAlignment="CENTER" GridPane.halignment="LEFT" GridPane.rowIndex="2" />
-                  <Button alignment="CENTER" mnemonicParsing="false" text="Return Book" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-                  <Label fx:id="bioLabel" prefHeight="127.0" prefWidth="148.0" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                  <Label fx:id="topicsLabel" prefHeight="42.0" prefWidth="140.0" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#editBook" text="Edit Book" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                  <TextArea fx:id="bioLabel" prefHeight="127.0" prefWidth="148.0" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                  <TextArea fx:id="topicsLabel" prefHeight="93.0" prefWidth="140.0" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  <Button fx:id="checkOut" mnemonicParsing="false" onAction="#checkOutBook" text="Check Out" GridPane.rowIndex="2" />
                </children>
             </GridPane>
          </children>

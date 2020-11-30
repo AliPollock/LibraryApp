@@ -20,17 +20,21 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+/**
+ * Class that controls the CreateBook page, initializes the data, controls the @FXML fields and actions.
+ */
+
 public class CreateBookController implements Initializable {
 
-    ObservableList editOptionsList = FXCollections.observableArrayList();
 
     @FXML private Parent root;
-
     @FXML private TextField title;
     @FXML private TextField author;
     @FXML private TextField publisher;
     @FXML private TextField date;
     @FXML private TextField ISBN;
+
+    ObservableList editOptionsList = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -42,12 +46,17 @@ public class CreateBookController implements Initializable {
     }
 
 
-    /**The createBook method takes the fields filled by the createbook.fxml form and converts them to sql compatible data types,
-    it checks if the author already exists in the database and if not creates a new one. It then creates a book instance and uses this to
-    create a new book database entry
-    **/
+
+    /**
+     * Method takes the data from the fxml, checks if the author already exists in the database and if not creates a new one.
+     * It creates a new book in the database.
+     * @param actionEvent An external stimulus from user interface.
+     * @throws SQLException An exception that provides information on a database access error or other errors.
+     * @throws IOException Signals that an I/O exception of some sort has occurred. This class is the general class of exceptions produced by failed or interrupted I/O operations.
+     */
+
     @FXML
-    private void createBook(ActionEvent event) throws SQLException, IOException {
+    private void createBook(ActionEvent actionEvent) throws SQLException, IOException {
         String bookTitle = title.getText();
         String bookAuthor = author.getText();
         String bookPublisher = publisher.getText();
@@ -67,16 +76,22 @@ public class CreateBookController implements Initializable {
         PhysicalBook book = new PhysicalBook(bookTitle, authorInstance, publicationDate, bookPublisher, iSBN);
 
 
+
         String sqlString = "INSERT INTO PBooks (_id, name, author, publicationDate, publisher, topics, timesRead, bio, isbn, currentUser, isOnLoan, isOverdue, overDueCharge, dueDate, damages)" +
                     "VALUES(" + book.get_id() + ", '" + book.getName() + "', '" + book.getAuthor().get_id() + "', '" + book.getPublicationDate() + "', '" + book.getPublisher() + "', '" +
-                    book.getTopicsAsString() + "', " + book.getTimesRead() + ", '" + book.getBio() + "', '" + book.getISBN() + "', '" + book.getCurrentUser() + "', '" + book.isOnLoan() +
-                    "', '" + book.isOverdue() + "', " + book.getOverDueCharge() + ", '" + book.getDueDate() + "', '" + book.getDamages() + "')";
+                    book.getTopicsAsString() + "', " + book.getTimesRead() + ", '" + book.getBio() + "', '" + book.getISBN() + "', '" + 0 + "', '" + 0 +
+                    "', '" + 0 + "', " + book.getOverDueCharge() + ", '" + book.getDueDate() + "', '" + book.getDamages() + "')";
 
 
         DatabaseHandler.getInstance().execAction(sqlString);
         System.out.println(book);
         cancel();
     }
+
+    /**
+     * Route that creates new Home scene and links to the fxml file.
+     * @throws IOException Signals that an I/O exception of some sort has occurred. This class is the general class of exceptions produced by failed or interrupted I/O operations.
+     */
 
     public void cancel() throws IOException {
         Parent createBookParent = FXMLLoader.load(getClass().getResource("fxmlFiles/Home.fxml"));
@@ -86,6 +101,12 @@ public class CreateBookController implements Initializable {
         window.setScene(createBookScene);
         window.show();
     }
+
+    /**
+     * Route that creates new Home scene and links to the fxml file.
+     * @param actionEvent An external stimulus from user interface.
+     * @throws IOException Signals that an I/O exception of some sort has occurred. This class is the general class of exceptions produced by failed or interrupted I/O operations.
+     */
 
     public void cancel(ActionEvent actionEvent) throws IOException {
         Parent createBookParent = FXMLLoader.load(getClass().getResource("fxmlFiles/Home.fxml"));

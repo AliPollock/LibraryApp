@@ -14,12 +14,14 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+/**
+ * Class that controls the Home page, initializes the data, controls the @FXML fields and actions.
+ */
+
 public class HomeController implements Initializable {
 
     @FXML private Parent root;
     @FXML private TextField search;
-
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -30,13 +32,23 @@ public class HomeController implements Initializable {
         }
     }
 
+    /**
+     * Class constructor
+     */
+
     public HomeController() {
     }
 
     //Create Methods
 
+    /**
+     * Route that creates new CreateBook scene and links to the fxml file.
+     * @param actionEvent An external stimulus from user interface.
+     * @throws IOException Signals that an I/O exception of some sort has occurred. This class is the general class of exceptions produced by failed or interrupted I/O operations.
+     */
+
     @FXML
-    public void createBook(ActionEvent event) throws IOException {
+    public void createBook(ActionEvent actionEvent) throws IOException {
         Parent createBookParent = FXMLLoader.load(getClass().getResource("fxmlFiles/CreateBook.fxml"));
         Scene createBookScene = new Scene(createBookParent);
 
@@ -45,100 +57,138 @@ public class HomeController implements Initializable {
         window.show();
     }
 
+    /**
+     * Route that creates new CreateEBook scene and links to the fxml file.
+     * @param actionEvent An external stimulus from user interface.
+     * @throws IOException Signals that an I/O exception of some sort has occurred. This class is the general class of exceptions produced by failed or interrupted I/O operations.
+     */
+
     @FXML
     public void createEBook(ActionEvent actionEvent) throws IOException {
-        Parent createBookParent = FXMLLoader.load(getClass().getResource("fxmlFiles/CreateEBook.fxml"));
-        Scene createBookScene = new Scene(createBookParent);
+        Parent createEBookParent = FXMLLoader.load(getClass().getResource("fxmlFiles/CreateEBook.fxml"));
+        Scene createEBookScene = new Scene(createEBookParent);
 
         Stage window = (Stage) root.getScene().getWindow();
-        window.setScene(createBookScene);
+        window.setScene(createEBookScene);
         window.show();
     }
 
+    /**
+     * Route that creates new CreateUser scene and links to the fxml file.
+     * @param actionEvent An external stimulus from user interface.
+     * @throws IOException Signals that an I/O exception of some sort has occurred. This class is the general class of exceptions produced by failed or interrupted I/O operations.
+     */
+
     @FXML
     public void addUser(ActionEvent actionEvent) throws IOException {
-        Parent createBookParent = FXMLLoader.load(getClass().getResource("fxmlFiles/CreateUser.fxml"));
-        Scene createBookScene = new Scene(createBookParent);
+        Parent createUserParent = FXMLLoader.load(getClass().getResource("fxmlFiles/CreateUser.fxml"));
+        Scene createUserScene = new Scene(createUserParent);
 
         Stage window = (Stage) root.getScene().getWindow();
-        window.setScene(createBookScene);
+        window.setScene(createUserScene);
         window.show();
     }
 
     //Read Methods
 
+    /**
+     * Route that creates new Results scene and links to the fxml file.
+     * @throws IOException Signals that an I/O exception of some sort has occurred. This class is the general class of exceptions produced by failed or interrupted I/O operations.
+     */
+
     @FXML
-    public void search() throws IOException { //gets ResultsController and passes search data field to search field in ResultsController then sets a new scene
+    public void search() throws IOException {
         String searchString = this.search.getText();
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("fxmlFiles/Results.fxml"));
 
-        Parent createBookParent = loader.load();
+        Parent resultsParent = loader.load();
 
-        Scene createBookScene = new Scene(createBookParent);
+        Scene resultsScene = new Scene(resultsParent);
 
-        ResultsController newController = loader.getController();
+        ResultsController resultsController = loader.getController();
 
-        newController.setSearch(this.search.getText());
+        resultsController.setSearch(this.search.getText());
 
         Stage window = (Stage) root.getScene().getWindow();
-        window.setScene(createBookScene);
+        window.setScene(resultsScene);
         window.show();
     }
+
+    /**
+     * Route that creates new AllBooks scene and links to the fxml file.
+     * @throws IOException Signals that an I/O exception of some sort has occurred. This class is the general class of exceptions produced by failed or interrupted I/O operations.
+     */
 
     @FXML
     public void showAllBooks(ActionEvent event) throws IOException {
-        Parent createBookParent = FXMLLoader.load(getClass().getResource("fxmlFiles/AllBooks.fxml"));
-        Scene editBookScene = new Scene(createBookParent);
+        Parent allBooksParent = FXMLLoader.load(getClass().getResource("fxmlFiles/AllBooks.fxml"));
+        Scene allBooksScene = new Scene(allBooksParent);
 
         Stage window = (Stage) root.getScene().getWindow();
-        window.setScene(editBookScene);
+        window.setScene(allBooksScene);
         window.show();
     }
+
+    /**
+     * Route that creates new AllEBooks scene and links to the fxml file.
+     * @throws IOException Signals that an I/O exception of some sort has occurred. This class is the general class of exceptions produced by failed or interrupted I/O operations.
+     */
 
     @FXML
     public void showAllEBooks(ActionEvent event) throws IOException {
-        Parent createBookParent = FXMLLoader.load(getClass().getResource("fxmlFiles/AllEBooks.fxml"));
-        Scene editBookScene = new Scene(createBookParent);
+        Parent allEBooksParent = FXMLLoader.load(getClass().getResource("fxmlFiles/AllEBooks.fxml"));
+        Scene allEBooksScene = new Scene(allEBooksParent);
 
         Stage window = (Stage) root.getScene().getWindow();
-        window.setScene(editBookScene);
+        window.setScene(allEBooksScene);
         window.show();
     }
+
+    /**
+     * Route that creates new AllLibraryItems scene and links to the fxml file.
+     * @throws IOException Signals that an I/O exception of some sort has occurred. This class is the general class of exceptions produced by failed or interrupted I/O operations.
+     */
 
     public void showAllLibraryItems(ActionEvent actionEvent) throws IOException {
-        Parent createBookParent = FXMLLoader.load(getClass().getResource("fxmlFiles/AllLibraryItems.fxml"));
-        Scene editBookScene = new Scene(createBookParent);
+        Parent allLibraryItemsParent = FXMLLoader.load(getClass().getResource("fxmlFiles/AllLibraryItems.fxml"));
+        Scene allLibraryItemsScene = new Scene(allLibraryItemsParent);
 
         Stage window = (Stage) root.getScene().getWindow();
-        window.setScene(editBookScene);
+        window.setScene(allLibraryItemsScene);
         window.show();
     }
+
+    /**
+     * Route that creates new AllUsers scene and links to the fxml file.
+     * @throws IOException Signals that an I/O exception of some sort has occurred. This class is the general class of exceptions produced by failed or interrupted I/O operations.
+     */
 
     public void showAllUsers(ActionEvent actionEvent) throws IOException {
-        Parent createBookParent = FXMLLoader.load(getClass().getResource("fxmlFiles/AllUsers.fxml"));
-        Scene editBookScene = new Scene(createBookParent);
+        Parent allUsersParent = FXMLLoader.load(getClass().getResource("fxmlFiles/AllUsers.fxml"));
+        Scene allUsersScene = new Scene(allUsersParent);
 
         Stage window = (Stage) root.getScene().getWindow();
-        window.setScene(editBookScene);
+        window.setScene(allUsersScene);
         window.show();
     }
 
-    // update routes to go in book display page
+    /**
+     * Route that creates new EditBook scene and links to the fxml file.
+     * @throws IOException Signals that an I/O exception of some sort has occurred. This class is the general class of exceptions produced by failed or interrupted I/O operations.
+     */
+
     @FXML
     public void editBook(ActionEvent event) throws IOException {
-        Parent createBookParent = FXMLLoader.load(getClass().getResource("fxmlFiles/EditBook.fxml"));
-        Scene editBookScene = new Scene(createBookParent);
+        Parent editBookParent = FXMLLoader.load(getClass().getResource("fxmlFiles/EditBook.fxml"));
+        Scene editBookScene = new Scene(editBookParent);
 
         Stage window = (Stage) root.getScene().getWindow();
         window.setScene(editBookScene);
         window.show();
     }
-
 
 
     public void editEBook(ActionEvent actionEvent) {
     }
-
-
 }

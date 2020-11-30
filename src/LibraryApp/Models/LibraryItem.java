@@ -1,6 +1,10 @@
 package LibraryApp.Models;
-
 import java.util.ArrayList;
+
+/**
+ * Abstract class that generally represents items in Library. Stores the information and carries out the operations that
+ * would be stored or implicit in a Library book or e-resource.
+ */
 
 public abstract class LibraryItem {
     private int _id;
@@ -12,6 +16,15 @@ public abstract class LibraryItem {
     private int timesRead;
     private String bio;
     private String iSBN;
+
+    /**
+     * Constructor for a library item, generates a unique object ID and assigns default values to fields which are not provided.
+     * @param name The name of the item.
+     * @param author The name of the author.
+     * @param publicationDate The publication date of the object as a string.
+     * @param publisher The name of the publisher.
+     * @param iSBN The identification number the library attaches to the work.
+     */
 
     public LibraryItem(String name, Author author, String publicationDate, String publisher, String iSBN) {
         this._id = (int) (Math.random()*1000*(Math.random()*1000*name.length()));
@@ -25,14 +38,32 @@ public abstract class LibraryItem {
         this.timesRead = 0;
     }
 
+    /**
+     * Method which generates a string representation of the object.
+     * @return The string representation.
+     */
 
     @Override
     public String toString() {
-        return "LibraryItem: " + name +
-                ", author: " + author;
+        return "LibraryItem{" +
+                "_id=" + _id +
+                ", name='" + name + '\'' +
+                ", author=" + author +
+                ", publicationDate='" + publicationDate + '\'' +
+                ", publisher='" + publisher + '\'' +
+                ", topics=" + topics +
+                ", timesRead=" + timesRead +
+                ", bio='" + bio + '\'' +
+                ", iSBN='" + iSBN + '\'' +
+                '}';
     }
 
-    // getters
+
+    //Getters
+
+    public int get_id() {
+    return _id;
+    }
 
     public String getName() {
         return name;
@@ -54,16 +85,17 @@ public abstract class LibraryItem {
         return topics;
     }
 
+    /**
+     * An alternative getter for topics which returns topics as a comma separated string in order to enter into the database.
+     * @return String representation of topics.
+     */
+
     public String getTopicsAsString() {
         String outputString = null;
         for(String string: this.topics) {
             outputString += string + ", ";
         }
         return outputString;
-    }
-
-    public int getTimesRead() {
-        return timesRead;
     }
 
     public String getBio() {
@@ -74,34 +106,18 @@ public abstract class LibraryItem {
         return iSBN;
     }
 
-    public int get_id() {
-        return _id;
+    public int getTimesRead() {
+        return timesRead;
     }
 
-    public String getiSBN() {
-        return iSBN;
-    }
-
-    // setters
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setBio(String bio) {
-        this.bio = bio;
-    }
-
-    public void addTopic(String topics) {
-        this.topics.add(topics);
-    }
-
-    public void incrementTimesRead() {
-        this.timesRead += 1;
-    }
+    //Setters
 
     public void set_id(int _id) {
         this._id = _id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setAuthor(Author author) {
@@ -120,11 +136,36 @@ public abstract class LibraryItem {
         this.topics = topics;
     }
 
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
     public void setTimesRead(int timesRead) {
         this.timesRead = timesRead;
     }
 
-    public void setiSBN(String iSBN) {
+    public void setISBN(String iSBN) {
         this.iSBN = iSBN;
+    }
+
+    /**
+     * An alternative Setter which breaks apart the topic string returned from the database and adds each topic into the topics arraylist.
+     * @param topicString A comma separated list of topics.
+     */
+
+    public void setTopicsCSV(String topicString){
+        String[] untrimmedTopics = topicString.split(",");
+        for (String topic: untrimmedTopics){
+            String stringTopic = topic.trim();
+            this.topics.add(stringTopic);
+        }
+    }
+
+    /**
+     * Increments the times a book has been read.
+     */
+
+    public void incrementTimesRead() {
+        this.timesRead += 1;
     }
 }

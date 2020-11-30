@@ -22,6 +22,10 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+/**
+ * Class that controls the CreateEBook page, initializes the data, controls the @FXML fields and actions.
+ */
+
 public class CreateEBookController implements Initializable {
 
     ObservableList editOptionsList = FXCollections.observableArrayList();
@@ -47,15 +51,16 @@ public class CreateEBookController implements Initializable {
     }
 
 
+    /**
+     * Method takes the fields filled by the fxml, it calls ensure the author exists in the database.
+     * It creates a new book in the database.
+     * @param actionEvent An external stimulus from user interface.
+     * @throws SQLException An exception that provides information on a database access error or other errors.
+     * @throws IOException Signals that an I/O exception of some sort has occurred. This class is the general class of exceptions produced by failed or interrupted I/O operations.
+     */
 
-
-
-    /**The createEbook method takes the fields filled by the createEbook.fxml form and converts them to sql compatible data types,
-     it checks if the author already exists in the database and if not creates a new one. It then creates an Ebook instance and uses this to
-     create a new Ebook database entry
-     **/
     @FXML
-    private void createEBook(ActionEvent event) throws SQLException, IOException {
+    private void createEBook(ActionEvent actionEvent) throws SQLException, IOException {
         String bookTitle = title.getText();
         String bookAuthor = author.getText();
         String bookPublisher = publisher.getText();
@@ -85,6 +90,11 @@ public class CreateEBookController implements Initializable {
         cancel();
     }
 
+    /**
+     * Route that creates new Home scene and links to the fxml file.
+     * @throws IOException Signals that an I/O exception of some sort has occurred. This class is the general class of exceptions produced by failed or interrupted I/O operations.
+      */
+
     public void cancel() throws IOException {
         Parent createBookParent = FXMLLoader.load(getClass().getResource("fxmlFiles/Home.fxml"));
         Scene createBookScene = new Scene(createBookParent);
@@ -93,6 +103,12 @@ public class CreateEBookController implements Initializable {
         window.setScene(createBookScene);
         window.show();
     }
+
+    /**
+     * Route that creates new Home scene and links to the fxml file.
+     * @param actionEvent An external stimulus from user interface.
+     * @throws IOException Signals that an I/O exception of some sort has occurred. This class is the general class of exceptions produced by failed or interrupted I/O operations.
+     */
 
     public void cancel(ActionEvent actionEvent) throws IOException {
         Parent createBookParent = FXMLLoader.load(getClass().getResource("fxmlFiles/Home.fxml"));

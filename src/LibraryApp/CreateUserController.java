@@ -1,7 +1,6 @@
 package LibraryApp;
 
 import LibraryApp.Models.*;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,7 +8,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -17,9 +15,11 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
+
+/**
+ * Class that controls the CreateBook page, initializes the data, controls the @FXML fields and actions.
+ */
 
 public class CreateUserController implements Initializable {
 
@@ -41,7 +41,12 @@ public class CreateUserController implements Initializable {
         loadEditOptions();
     }
 
-
+    /**
+     * Method that creates new user with data from fxml.
+     * @param actionEvent An external stimulus from user interface.
+     * @throws IOException Signals that an I/O exception of some sort has occurred. This class is the general class of exceptions produced by failed or interrupted I/O operations.
+     * @throws SQLException An exception that provides information on a database access error or other errors.
+     */
 
     public void createUser(ActionEvent actionEvent) throws SQLException, IOException {
         String userType = getChoice(userTypeOptions);
@@ -83,6 +88,10 @@ public class CreateUserController implements Initializable {
         }
     }
 
+    /**
+     * Route that creates new Home scene and links to the fxml file.
+     * @throws IOException Signals that an I/O exception of some sort has occurred. This class is the general class of exceptions produced by failed or interrupted I/O operations.
+     */
 
     public void cancel() throws IOException {
         Parent createBookParent = FXMLLoader.load(getClass().getResource("fxmlFiles/Home.fxml"));
@@ -93,6 +102,12 @@ public class CreateUserController implements Initializable {
         window.show();
     }
 
+    /**
+     * Route that creates new Home scene and links to the fxml file.
+     * @param actionEvent An external stimulus from user interface.
+     * @throws IOException Signals that an I/O exception of some sort has occurred. This class is the general class of exceptions produced by failed or interrupted I/O operations.
+     */
+
     public void cancel(ActionEvent actionEvent) throws IOException {
         Parent createBookParent = FXMLLoader.load(getClass().getResource("fxmlFiles/Home.fxml"));
         Scene createBookScene = new Scene(createBookParent);
@@ -102,7 +117,11 @@ public class CreateUserController implements Initializable {
         window.show();
     }
 
-    private void loadEditOptions() { //this works but was causing some error, wait till it's moved to book view
+    /**
+     * Method loads options into choiceBox.
+     */
+
+    private void loadEditOptions() {
         String admin = "Admin";
         String student = "Student";
 
@@ -110,6 +129,12 @@ public class CreateUserController implements Initializable {
         userTypeOptions.setValue(student);
 
     }
+
+    /**
+     * Method extracts value of choiceBox.
+     * @param userTypeOptions The choicebox which contains the selected value
+     * @return String equal to option selected
+     */
 
     private String getChoice(ChoiceBox<String> userTypeOptions) {
         String userType = userTypeOptions.getValue();

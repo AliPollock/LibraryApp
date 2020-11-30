@@ -1,6 +1,17 @@
 package LibraryApp.Models;
 
+/**
+ * Class that represents an Admin. Stores the information specific to an Admin member of the Library.
+ * Inherits from User
+ */
+
 public class Admin extends User {
+
+    /**
+     * Class constructor that sets default values for the student and calls {@link LibraryApp.Models.User#User}
+     * @param name The name of the Student.
+     * @param password The password for the Student.
+     */
 
     public Admin(String name, String password) {
         super(name, password);
@@ -10,47 +21,4 @@ public class Admin extends User {
         this.maxBooksAllowed = 30;
     }
 
-//    public void checkOutBook(User reader, PhysicalBook book) { //will need to make this specifically a physical book
-//        if (reader.isMember && reader.getLibrary() == this.getLibrary()) {
-//            if(book.getLibrary() == this.getLibrary()) {
-//                reader.getBooksOnLoan().add(book);
-//                book.changeLoanStatus(this.getUserID());
-//                book.decrementCopies(1);
-//                book.incrementTimesRead();
-//            } else {
-//                System.out.println("the book is not in this library");
-//            }
-//        } else {
-//            System.out.println("The reader is not a member of this library");
-//        }
-//    }
-//
-//    public void returnBook(User reader, PhysicalBook book){
-//        if (reader.getBooksOnLoan().contains(book)  && reader.getLibrary() == this.getLibrary()) {
-//            if (book.getLibrary()== this.getLibrary()){
-//                reader.getBooksOnLoan().remove(book);
-//                book.changeLoanStatus(this.getUserID());
-//                book.incrementCopies(1);
-//                book.setDueDate();
-//            } else {
-//                System.out.println("The book doesn't belong to this library");
-//            }
-//        } else {
-//            System.out.println("The reader cannot return the book to this library");
-//        }
-//    }
-
-    public void addStudent(){}
-
-    public void removeStudent(){}
-//    public void checkDamaged() {}
-//    public void setDamaged(){
-//      book.setDamaged(true)}
-//    public void changeDueDate(Book) {}
-//    public void addBooktoLibrary() {}
-
-//    public void removeBookFromLibrary(Book book) {
-//      if (book.getDamaged() = true)}
-//    public void chargeFees() {}
-//    public void notifyUser() {}
 }

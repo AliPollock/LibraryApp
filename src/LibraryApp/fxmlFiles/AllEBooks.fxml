@@ -19,6 +19,7 @@
                         <TableColumn fx:id="authorCol" prefWidth="75.0" text="Author" />
                         <TableColumn fx:id="publisherCol" prefWidth="75.0" text="Publisher" />
                         <TableColumn fx:id="topicsCol" prefWidth="75.0" text="Topics" />
+                        <TableColumn fx:id="viewEBookCol" prefWidth="75.0"/>
                     </columns>
                 </TableView>
             </center>

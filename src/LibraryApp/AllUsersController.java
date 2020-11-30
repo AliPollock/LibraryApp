@@ -20,16 +20,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+/**
+ * Class that controls the AllUsers page, initializes the data, controls the @FXML fields and actions.
+ */
+
 public class AllUsersController implements Initializable {
-    ObservableList<UserModel> bookList = FXCollections.observableArrayList();
 
-    @FXML
-    private Parent root;
-
+    @FXML private Parent root;
     @FXML public TableView<UserModel> tableView;
     @FXML public TableColumn<UserModel, String> nameCol;
     @FXML public TableColumn<UserModel, String> typeCol;
 
+    ObservableList<UserModel> bookList = FXCollections.observableArrayList();
     DatabaseHandler handler;
 
     @Override
@@ -43,11 +45,18 @@ public class AllUsersController implements Initializable {
         loadData();
     }
 
+    /**
+     * This method Initialised the columns and assigns properties to each one.
+     */
 
     public void initCol() {
         nameCol.setCellValueFactory(new PropertyValueFactory<>("username"));
         typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
     }
+
+    /**
+     * Method used to initialize table and fill with data for all users returned from Database.
+     */
 
     private void loadData() {
         String sql = "SELECT * FROM Users";
@@ -64,6 +73,13 @@ public class AllUsersController implements Initializable {
         tableView.getItems().setAll(bookList);
     }
 
+
+    /**
+     * Home route which creates new scene and links to the Home fxml file
+     * @param actionEvent responds to an Action event
+     * @throws IOException Signals that an I/O exception of some sort has occurred. This class is the general class of exceptions produced by failed or interrupted I/O operations.
+     */
+
     public void home(ActionEvent actionEvent) throws IOException {
         Parent createBookParent = FXMLLoader.load(getClass().getResource("fxmlFiles/Home.fxml"));
         Scene createBookScene = new Scene(createBookParent);
@@ -73,10 +89,18 @@ public class AllUsersController implements Initializable {
         window.show();
     }
 
-    /** This is the inner class that will display book values in a table **/
+    /**
+     * This is the inner class that will display book values in a table
+     */
 
     public class UserModel {
         private SimpleStringProperty username, type;
+
+        /**
+         * The Class constructor, it accepts string parameters and parses them into simple strings.
+         * @param username
+         * @param type
+         */
 
         public UserModel(String username, String type) {
             this.username = new SimpleStringProperty(username);
@@ -91,6 +115,13 @@ public class AllUsersController implements Initializable {
             return type.get();
         }
 
+        public void setUsername(String username) {
+            this.username.set(username);
+        }
+
+        public void setType(String type) {
+            this.type.set(type);
+        }
     }
 }
 

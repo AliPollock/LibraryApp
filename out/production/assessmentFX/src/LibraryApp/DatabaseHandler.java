@@ -3,8 +3,10 @@ package LibraryApp;
 import LibraryApp.Models.*;
 
 import java.sql.*;
-import java.util.ArrayList;
 
+/**
+ * Singleton class with private constructor which handles interaction with database.
+ */
 
 public final class DatabaseHandler {
 
@@ -20,12 +22,22 @@ public final class DatabaseHandler {
         conn = DriverManager.getConnection("jdbc:sqlite:C:\\assessmentFX\\db\\library.db");
     }
 
+    /**
+     * Static method which creates instance of this class.
+     * @return an instance of DatabaseHandler
+     * @throws SQLException Signals that an I/O exception of some sort has occurred. This class is the general class of exceptions produced by failed or interrupted I/O operations.
+     */
+
     public static DatabaseHandler getInstance() throws SQLException {
         if(handler==null) {
             handler = new DatabaseHandler();
         }
         return handler;
     }
+
+    /**
+     * Method creates connection to database and creates database tables.
+     */
 
     public void createConnection() {
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:C:\\assessmentFX\\db\\library.db");
@@ -54,6 +66,9 @@ public final class DatabaseHandler {
     }
 
 
+    /**
+     * Method deletes tables from database
+     */
     public void clearDatabase(){
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:C:\\assessmentFX\\db\\library.db");
              Statement statement = conn.createStatement())
@@ -71,6 +86,11 @@ public final class DatabaseHandler {
         }
     }
 
+    /**
+     * This method executes a database query.
+     * @param query A valid sql query statement.
+     * @return Result set containing data corresponding with query
+     */
 
     public ResultSet execQuery(String query) {
         try {
@@ -84,6 +104,11 @@ public final class DatabaseHandler {
         }
     }
 
+    /**
+     * This method executes a database action.
+     * @param action A valid sql action statement.
+     * @return boolean indicating if action was successful
+     */
 
     public boolean execAction(String action) {
         Statement statement = null;
@@ -98,6 +123,11 @@ public final class DatabaseHandler {
         }
     }
 
+    /**
+     * Opens connection to database.
+     * @return
+     */
+
     public boolean openDatabase() {
         try {
             Connection conn = DriverManager.getConnection("jdbc:sqlite:C:\\assessmentFX\\db\\library.db");
@@ -108,6 +138,10 @@ public final class DatabaseHandler {
             return false;
         }
     }
+
+    /**
+     * Closes connection to database.
+     */
 
     public void closeDatabase() {
         try {
@@ -120,6 +154,12 @@ public final class DatabaseHandler {
         }
     }
 
+    /**
+     * This method checks if the author exists in the database and returns author object.
+     * If the author doesn't exist in the database, it will be added.
+     * @param bookAuthor The author name as a String.
+     * @return The author object
+     */
 
     public Author checkIfAuthorExists(String bookAuthor){
 
@@ -151,6 +191,14 @@ public final class DatabaseHandler {
 
         return authorInstance;
     }
+
+    /**
+     * This method checks if the User exists in the database.
+     * If the author doesn't exist in the database, it will be added.
+     * @param user The username of the user as a String.
+     * @return boolean indicating whether the user exists in the database.
+     * @throws SQLException Signals that an I/O exception of some sort has occurred. This class is the general class of exceptions produced by failed or interrupted I/O operations.
+     */
 
     public boolean checkIfUserExists(String user) throws SQLException {
 
