@@ -15,6 +15,10 @@ public final class DatabaseHandler {
     private Connection conn;
     public static final String CONNECTION_STRING = "jdbc:sqlite:C:\\assessmentFX\\db\\library.db";
 
+    /**
+     * Class constructor, calls createConnection and initializes connection field.
+     * @throws SQLException
+     */
 
     private DatabaseHandler() throws SQLException {
 //        clearDatabase();
@@ -125,7 +129,7 @@ public final class DatabaseHandler {
 
     /**
      * Opens connection to database.
-     * @return
+     * @return boolean indicates success or failure of opening the database.
      */
 
     public boolean openDatabase() {
@@ -194,7 +198,6 @@ public final class DatabaseHandler {
 
     /**
      * This method checks if the User exists in the database.
-     * If the author doesn't exist in the database, it will be added.
      * @param user The username of the user as a String.
      * @return boolean indicating whether the user exists in the database.
      * @throws SQLException Signals that an I/O exception of some sort has occurred. This class is the general class of exceptions produced by failed or interrupted I/O operations.

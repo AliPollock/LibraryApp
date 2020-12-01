@@ -23,6 +23,17 @@ public class HomeController implements Initializable {
     @FXML private Parent root;
     @FXML private TextField search;
 
+    /**
+     * Method that initialised the database handler.
+     * @param url Class {@code URL} represents a Uniform Resource
+     * Locator, a pointer to a "resource" on the World
+     * Wide Web.
+     * @param resourceBundle Resource bundles contain locale-specific objects.  When your program needs a
+     * locale-specific resource, a <code>String</code> for example, your program can
+     * load it from the resource bundle that is appropriate for the current user's
+     * locale.
+     */
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
@@ -39,7 +50,7 @@ public class HomeController implements Initializable {
     public HomeController() {
     }
 
-    //Create Methods
+    //Create Routes
 
     /**
      * Route that creates new CreateBook scene and links to the fxml file.
@@ -89,7 +100,7 @@ public class HomeController implements Initializable {
         window.show();
     }
 
-    //Read Methods
+    //Read Routes
 
     /**
      * Route that creates new Results scene and links to the fxml file.
@@ -117,11 +128,12 @@ public class HomeController implements Initializable {
 
     /**
      * Route that creates new AllBooks scene and links to the fxml file.
+     * @param actionEvent responds to an Action event.
      * @throws IOException Signals that an I/O exception of some sort has occurred. This class is the general class of exceptions produced by failed or interrupted I/O operations.
      */
 
     @FXML
-    public void showAllBooks(ActionEvent event) throws IOException {
+    public void showAllBooks(ActionEvent actionEvent) throws IOException {
         Parent allBooksParent = FXMLLoader.load(getClass().getResource("fxmlFiles/AllBooks.fxml"));
         Scene allBooksScene = new Scene(allBooksParent);
 
@@ -132,11 +144,12 @@ public class HomeController implements Initializable {
 
     /**
      * Route that creates new AllEBooks scene and links to the fxml file.
+     * @param actionEvent responds to an Action event.
      * @throws IOException Signals that an I/O exception of some sort has occurred. This class is the general class of exceptions produced by failed or interrupted I/O operations.
      */
 
     @FXML
-    public void showAllEBooks(ActionEvent event) throws IOException {
+    public void showAllEBooks(ActionEvent actionEvent) throws IOException {
         Parent allEBooksParent = FXMLLoader.load(getClass().getResource("fxmlFiles/AllEBooks.fxml"));
         Scene allEBooksScene = new Scene(allEBooksParent);
 
@@ -147,6 +160,7 @@ public class HomeController implements Initializable {
 
     /**
      * Route that creates new AllLibraryItems scene and links to the fxml file.
+     * @param actionEvent responds to an Action event.
      * @throws IOException Signals that an I/O exception of some sort has occurred. This class is the general class of exceptions produced by failed or interrupted I/O operations.
      */
 
@@ -161,6 +175,7 @@ public class HomeController implements Initializable {
 
     /**
      * Route that creates new AllUsers scene and links to the fxml file.
+     * @param actionEvent responds to an Action event.
      * @throws IOException Signals that an I/O exception of some sort has occurred. This class is the general class of exceptions produced by failed or interrupted I/O operations.
      */
 
@@ -175,11 +190,13 @@ public class HomeController implements Initializable {
 
     /**
      * Route that creates new EditBook scene and links to the fxml file.
+     * @param actionEvent responds to an Action event.
      * @throws IOException Signals that an I/O exception of some sort has occurred. This class is the general class of exceptions produced by failed or interrupted I/O operations.
      */
 
+
     @FXML
-    public void editBook(ActionEvent event) throws IOException {
+    public void editBook(ActionEvent actionEvent) throws IOException {
         Parent editBookParent = FXMLLoader.load(getClass().getResource("fxmlFiles/EditBook.fxml"));
         Scene editBookScene = new Scene(editBookParent);
 
@@ -188,6 +205,12 @@ public class HomeController implements Initializable {
         window.show();
     }
 
+    /**
+     * Route to editEBook.
+     * @param actionEvent responds to an Action event.
+     */
+
+    //**********************delete this method and fxml on home page.
 
     public void editEBook(ActionEvent actionEvent) {
     }

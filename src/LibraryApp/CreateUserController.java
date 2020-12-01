@@ -26,10 +26,19 @@ public class CreateUserController implements Initializable {
     @FXML private ChoiceBox<String> userTypeOptions = new ChoiceBox<>();
     @FXML private Parent root;
     @FXML private TextField userTypeSelection;
-
     @FXML private TextField username;
     @FXML private TextField password;
 
+    /**
+     * Method that initialised the database handler and calls loadEditOptions.
+     * @param url Class {@code URL} represents a Uniform Resource
+     * Locator, a pointer to a "resource" on the World
+     * Wide Web.
+     * @param resourceBundle Resource bundles contain locale-specific objects.  When your program needs a
+     * locale-specific resource, a <code>String</code> for example, your program can
+     * load it from the resource bundle that is appropriate for the current user's
+     * locale.
+     */
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

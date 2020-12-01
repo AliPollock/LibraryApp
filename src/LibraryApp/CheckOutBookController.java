@@ -26,15 +26,26 @@ public class CheckOutBookController implements Initializable {
     @FXML private int _id;
     @FXML private TextField username;
 
-    DatabaseHandler handler = DatabaseHandler.getInstance();
+    public DatabaseHandler handler = DatabaseHandler.getInstance();
 
     /**
-     * Class constructor
+     * Class constructor.
      * @throws SQLException An exception that provides information on a database access error or other errors.
      */
 
     public CheckOutBookController() throws SQLException {
     }
+
+    /**
+     * Method that initialised the database handler.
+     * @param url Class {@code URL} represents a Uniform Resource
+     * Locator, a pointer to a "resource" on the World
+     * Wide Web.
+     * @param resourceBundle Resource bundles contain locale-specific objects.  When your program needs a
+     * locale-specific resource, a <code>String</code> for example, your program can
+     * load it from the resource bundle that is appropriate for the current user's
+     * locale.
+     */
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -47,7 +58,9 @@ public class CheckOutBookController implements Initializable {
 
     /**
      * Method which is called from other controllers. Initializes ID field.
-     * @param _id Unique book ID
+     * @param _id Unique book ID.
+     * @throws IOException Signals that an I/O exception of some sort has occurred. This class is the general class of exceptions produced by failed or interrupted I/O operations.
+     * @throws SQLException An exception that provides information on a database access error or other errors.
      */
 
     public void loadData(int _id) throws IOException, SQLException {
@@ -55,7 +68,7 @@ public class CheckOutBookController implements Initializable {
     }
 
     /**
-     * Route that creates new createBookPage scene and links to the fxml file, passing the book ID to the new scene.
+     * Route that creates new ViewBookPage scene and links to the fxml file, passing the book ID to the new scene.
      * @throws IOException Signals that an I/O exception of some sort has occurred. This class is the general class of exceptions produced by failed or interrupted I/O operations.
      * @throws SQLException An exception that provides information on a database access error or other errors.
      */
@@ -66,14 +79,14 @@ public class CheckOutBookController implements Initializable {
 
         Parent createBookParent = loader.load();
 
-        Scene createBookScene = new Scene(createBookParent);
+        Scene viewBookScene = new Scene(createBookParent);
 
-        BookPageController newController = loader.getController();
+        BookPageController viewBookController = loader.getController();
 
-        newController.viewBook(this._id);
+        viewBookController.viewBook(this._id);
 
         Stage window = (Stage) root.getScene().getWindow();
-        window.setScene(createBookScene);
+        window.setScene(viewBookScene);
         window.show();
     }
 
@@ -109,7 +122,7 @@ public class CheckOutBookController implements Initializable {
      */
 
 
-    public void checkOutBook(ActionEvent actionEvent) throws IOException, SQLException { /// currently broken version trying to incremement timesRead and currentUser
+    public void checkOutBook(ActionEvent actionEvent) throws IOException, SQLException {
 
         String sqlUsernameQuery = "SELECT * FROM Users WHERE userName='" + this.username.getText() + "'";
         ResultSet usernameResults = handler.execQuery(sqlUsernameQuery);

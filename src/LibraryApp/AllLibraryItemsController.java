@@ -42,8 +42,19 @@ public class AllLibraryItemsController implements Initializable {
     @FXML public TableColumn<LibraryItemModel, Boolean> availabilityCol;
     @FXML public TableColumn viewBookCol;
 
-    DatabaseHandler handler;
+    public DatabaseHandler handler;
 
+
+    /**
+     * Method that initialised the database handler and calls loadData.
+     * @param url Class {@code URL} represents a Uniform Resource
+     * Locator, a pointer to a "resource" on the World
+     * Wide Web.
+     * @param resourceBundle Resource bundles contain locale-specific objects.  When your program needs a
+     * locale-specific resource, a <code>String</code> for example, your program can
+     * load it from the resource bundle that is appropriate for the current user's
+     * locale.
+     */
 
 
     @Override
@@ -58,7 +69,8 @@ public class AllLibraryItemsController implements Initializable {
     }
 
     /**
-     * Method used to initialize table and fill with data for all books returned from Database
+     * Method used to initialize table and fill with data for all books returned from Database.
+     * Adds a button with an event listener to each row.
      */
 
     private void loadData() {
@@ -111,31 +123,23 @@ public class AllLibraryItemsController implements Initializable {
                                 } catch (IOException | SQLException e) {
                                     e.printStackTrace();
                                 }
-//                                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//                                alert.setContentText("You have clicked \n " + bookModel.getName() + ", author: " + bookModel.getAuthor());
-//                                alert.show();
-
                             });
-
                             //now set button to cell
                             setGraphic(viewBookButton);
                         }
                         setText(null);
                     }
-
                 };
                 return cell;
             };
-
             viewBookCol.setCellFactory(cellFactory);
-
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
 
 
 
-        /** ################  Ebook section below  ################ **/
+        // ################  Ebook section below  ################ **/
 
 
 
@@ -182,34 +186,24 @@ public class AllLibraryItemsController implements Initializable {
                                 } catch (IOException | SQLException e) {
                                     e.printStackTrace();
                                 }
-//                                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//                                alert.setContentText("You have clicked \n " + eBookModel.getName() + ", author: " + eBookModel.getAuthor());
-//                                alert.show();
-
                             });
-
                             //now set button to cell
                             setGraphic(viewEBookButton);
                         }
                         setText(null);
                     }
-
                 };
                 return cell;
             };
-
-
             viewBookCol.setCellFactory(cellFactory);
-
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
-
         tableView.getItems().setAll(bookList);
     }
 
 
-    // routes
+    // Routes
 
     /**
      * Home route which creates new scene and links to the Home fxml file.
@@ -299,55 +293,108 @@ public class AllLibraryItemsController implements Initializable {
             this._id = _id;
         }
 
-        //Getters
+        /**
+         * Method to get the Name.
+         * @return String Name.
+         */
 
         public String getName() {
             return name.get();
         }
 
+        /**
+         * Method to get the Author.
+         * @return String Author.
+         */
+
         public String getAuthor() {
             return author.get();
         }
 
+        /**
+         * Method to get the Publisher.
+         * @return String Publisher.
+         */
 
         public String getPublisher() {
             return publisher.get();
         }
 
+        /**
+         * Method to get the Topics.
+         * @return String Topics.
+         */
 
         public String getTopics() {
             return topics.get();
         }
 
+        /**
+         * Method to get the Availability.
+         * @return String availability.
+         */
+
         public String getAvailability() {
             return availability.get();
         }
+
+        /**
+         * Method to get the ID.
+         * @return Stirng ID.
+         */
 
         public int get_id() {
             return _id;
         }
 
-        //Setters
-
+        /**
+         * Method to set the ID.
+         * @param _id String ID.
+         */
         public void set_id(int _id) {
             this._id = _id;
         }
+
+        /**
+         * Method to set the Name.
+         * @param name String Name.
+         */
 
         public void setName(String name) {
             this.name.set(name);
         }
 
+        /**
+         * Method to set the Author.
+         * @param author String Author.
+         */
+
         public void setAuthor(String author) {
             this.author.set(author);
         }
+
+        /**
+         * Method to set the Publisher.
+         * @param publisher String Publisher.
+         */
 
         public void setPublisher(String publisher) {
             this.publisher.set(publisher);
         }
 
+        /**
+         * Method to set the Topics.
+         * @param topics String Topics.
+         */
+
         public void setTopics(String topics) {
             this.topics.set(topics);
         }
+
+        /**
+         * Method to set the Availability.
+         * @param availability String Availability.
+         */
 
         public void setAvailability(String availability) {
             this.availability.set(availability);

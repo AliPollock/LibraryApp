@@ -31,8 +31,19 @@ public class AllUsersController implements Initializable {
     @FXML public TableColumn<UserModel, String> nameCol;
     @FXML public TableColumn<UserModel, String> typeCol;
 
-    ObservableList<UserModel> bookList = FXCollections.observableArrayList();
-    DatabaseHandler handler;
+    public ObservableList<UserModel> bookList = FXCollections.observableArrayList();
+    public DatabaseHandler handler;
+
+    /**
+     * Method that initialised the database handler and calls loadData and initCol.
+     * @param url Class {@code URL} represents a Uniform Resource
+     * Locator, a pointer to a "resource" on the World
+     * Wide Web.
+     * @param resourceBundle Resource bundles contain locale-specific objects.  When your program needs a
+     * locale-specific resource, a <code>String</code> for example, your program can
+     * load it from the resource bundle that is appropriate for the current user's
+     * locale.
+     */
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -46,7 +57,7 @@ public class AllUsersController implements Initializable {
     }
 
     /**
-     * This method Initialised the columns and assigns properties to each one.
+     * Method Initialised the columns and assigns properties to each one.
      */
 
     public void initCol() {
@@ -98,8 +109,8 @@ public class AllUsersController implements Initializable {
 
         /**
          * The Class constructor, it accepts string parameters and parses them into simple strings.
-         * @param username
-         * @param type
+         * @param username String username.
+         * @param type String type of resource i.e. Book or EBook.
          */
 
         public UserModel(String username, String type) {
@@ -107,21 +118,45 @@ public class AllUsersController implements Initializable {
             this.type = new SimpleStringProperty(type);
         }
 
+        /**
+         * Method to get the Username.
+         * @return String username.
+         */
+
         public String getUsername() {
             return username.get();
         }
+
+        /**
+         * Method to get the type.
+         * @return String type.
+         */
 
         public String getType() {
             return type.get();
         }
 
+        /**
+         * Method to set the Username.
+         * @param username String Username.
+         */
+
+
         public void setUsername(String username) {
             this.username.set(username);
         }
 
+        /**
+         * Method to set the type.
+         * @param type String type.
+         */
+
+
         public void setType(String type) {
             this.type.set(type);
         }
+
+
     }
 }
 

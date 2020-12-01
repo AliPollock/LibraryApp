@@ -1,8 +1,6 @@
 package LibraryApp;
-
 import LibraryApp.Models.Author;
 import LibraryApp.Models.EBook;
-import LibraryApp.Models.PhysicalBook;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,7 +11,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -28,7 +25,6 @@ import java.util.ResourceBundle;
 
 public class CreateEBookController implements Initializable {
 
-    ObservableList editOptionsList = FXCollections.observableArrayList();
 
     @FXML private Parent root;
     @FXML private TextField title;
@@ -39,7 +35,18 @@ public class CreateEBookController implements Initializable {
     @FXML private Button cancelButton;
     @FXML private Button okayButton;
 
+    public ObservableList editOptionsList = FXCollections.observableArrayList();
 
+    /**
+     * Method that initialised the database handler.
+     * @param url Class {@code URL} represents a Uniform Resource
+     * Locator, a pointer to a "resource" on the World
+     * Wide Web.
+     * @param resourceBundle Resource bundles contain locale-specific objects.  When your program needs a
+     * locale-specific resource, a <code>String</code> for example, your program can
+     * load it from the resource bundle that is appropriate for the current user's
+     * locale.
+     */
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -49,7 +56,6 @@ public class CreateEBookController implements Initializable {
             exception.printStackTrace();
         }
     }
-
 
     /**
      * Method takes the fields filled by the fxml, it calls ensure the author exists in the database.

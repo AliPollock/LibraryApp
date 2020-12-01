@@ -24,15 +24,26 @@ public class DeleteBookController implements Initializable {
     @FXML private Parent root;
 
     private int _id;
-    DatabaseHandler handler = DatabaseHandler.getInstance();
+    public DatabaseHandler handler = DatabaseHandler.getInstance();
 
     /**
-     * Class constructor
+     * Class constructor.
      * @throws SQLException An exception that provides information on a database access error or other errors.
      */
 
     public DeleteBookController() throws SQLException {
     }
+
+    /**
+     * Method that initialised the database handler.
+     * @param url Class {@code URL} represents a Uniform Resource
+     * Locator, a pointer to a "resource" on the World
+     * Wide Web.
+     * @param resourceBundle Resource bundles contain locale-specific objects.  When your program needs a
+     * locale-specific resource, a <code>String</code> for example, your program can
+     * load it from the resource bundle that is appropriate for the current user's
+     * locale.
+     */
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

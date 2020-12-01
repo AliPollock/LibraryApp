@@ -38,8 +38,19 @@ public class ResultsController implements Initializable {
     @FXML public TableColumn<LibraryItemModel, Boolean> availabilityCol;
     @FXML public TableColumn viewBookCol;
 
-    ObservableList<LibraryItemModel> bookList = FXCollections.observableArrayList();
-    DatabaseHandler handler;
+    public ObservableList<LibraryItemModel> bookList = FXCollections.observableArrayList();
+    public DatabaseHandler handler;
+
+    /**
+     * Method that initialised the database handler.
+     * @param url Class {@code URL} represents a Uniform Resource
+     * Locator, a pointer to a "resource" on the World
+     * Wide Web.
+     * @param resourceBundle Resource bundles contain locale-specific objects.  When your program needs a
+     * locale-specific resource, a <code>String</code> for example, your program can
+     * load it from the resource bundle that is appropriate for the current user's
+     * locale.
+     */
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -50,11 +61,9 @@ public class ResultsController implements Initializable {
         }
     }
 
-
-
     /**
      * Method which is called from other controllers. Sets the Search label and calls the loadData function.
-     * @param search
+     * @param search String search.
      */
 
     public void setSearch(String search){
@@ -79,7 +88,7 @@ public class ResultsController implements Initializable {
 
     /**
      * Method which searches the database for search term.
-     * Initialize the table and fills it with data for  books returned from Database.
+     * Initializes the table and fills it with data for books returned from Database.
      */
 
     private void loadData() {
@@ -135,25 +144,16 @@ public class ResultsController implements Initializable {
                                     } catch (IOException | SQLException e) {
                                         e.printStackTrace();
                                     }
-//                                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//                                alert.setContentText("You have clicked \n " + bookModel.getName() + ", author: " + bookModel.getAuthor());
-//                                alert.show();
-
                                 });
-
                                 //now set button to cell
                                 setGraphic(viewBookButton);
                             }
                             setText(null);
                         }
-
                     };
                     return cell;
                 };
-
                 viewBookCol.setCellFactory(cellFactory);
-
-
             } catch (SQLException exception) {
                 exception.printStackTrace();
             }
@@ -206,37 +206,25 @@ public class ResultsController implements Initializable {
                                     } catch (IOException | SQLException e) {
                                         e.printStackTrace();
                                     }
-//                                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//                                alert.setContentText("You have clicked \n " + eBookModel.getName() + ", author: " + eBookModel.getAuthor());
-//                                alert.show();
-
                                 });
-
                                 //now set button to cell
                                 setGraphic(viewEBookButton);
                             }
                             setText(null);
                         }
-
                     };
                     return cell;
                 };
-
-
                 viewBookCol.setCellFactory(cellFactory);
-
-
             } catch (SQLException exception) {
                 exception.printStackTrace();
             }
-
         }
-
         tableView.getItems().setAll(bookList);
     }
 
     /**
-     * Home route which creates new scene and links to the Home fxml file
+     * Home route which creates new scene and links to the Home fxml file.
      * @param actionEvent responds to an Action event
      * @throws IOException Signals that an I/O exception of some sort has occurred. This class is the general class of exceptions produced by failed or interrupted I/O operations.
      */
@@ -252,7 +240,7 @@ public class ResultsController implements Initializable {
 
     /**
      * Method which creates a new viewBook scene, and passes the ID of the book chosen to the new scene.
-     * @param bookModel
+     * @param bookModel The Internal class with simple string properties used to represent a Book object.
      * @throws IOException Signals that an I/O exception of some sort has occurred. This class is the general class of exceptions produced by failed or interrupted I/O operations.
      * @throws SQLException An exception that provides information on a database access error or other errors.
      */
@@ -276,7 +264,7 @@ public class ResultsController implements Initializable {
     }
 
     /**
-     * This is the inner class that will display book values in a table
+     * This is the inner class that will display book values in a table.
      **/
 
     public class LibraryItemModel {
@@ -320,56 +308,109 @@ public class ResultsController implements Initializable {
             this._id = _id;
         }
 
-        //Getters
+        /**
+         * Method to get Name.
+         * @return String Name.
+         */
 
         public String getName() {
             return name.get();
         }
 
+        /**
+         * Method to get Author.
+         * @return String Author.
+         */
+
         public String getAuthor() {
             return author.get();
         }
 
+        /**
+         * Method to get Publisher.
+         * @return String Publisher.
+         */
 
         public String getPublisher() {
             return publisher.get();
         }
 
+        /**
+         * Method to get Topics.
+         * @return String Topics.
+         */
 
         public String getTopics() {
             return topics.get();
         }
 
+        /**
+         * Method to get Availability.
+         * @return String Availability.
+         */
+
         public String getAvailability() {
             return availability.get();
         }
+
+        /**
+         * Method to get ID.
+         * @return String ID.
+         */
 
         public int get_id() {
             return _id;
         }
 
-        //Setters
-
+        /**
+         * Method to set ID.
+         * @param _id String ID.
+         */
 
         public void set_id(int _id) {
             this._id = _id;
         }
 
+        /**
+         * Method to set Name.
+         * @param name String Name.
+         */
+
         public void setName(String name) {
             this.name.set(name);
         }
+
+        /**
+         * Method to set Author.
+         * @param author String Author.
+         */
 
         public void setAuthor(String author) {
             this.author.set(author);
         }
 
+        /**
+         * Method to set Publisher.
+         * @param publisher String Publisher.
+         */
+
         public void setPublisher(String publisher) {
             this.publisher.set(publisher);
         }
 
+        /**
+         * Method to set Topics.
+         * @param topics String Topics.
+         */
+
         public void setTopics(String topics) {
             this.topics.set(topics);
         }
+
+        /**
+         * Method to set Availability.
+         * @param availability String Availability.
+         */
 
         public void setAvailability(String availability) {
             this.availability.set(availability);

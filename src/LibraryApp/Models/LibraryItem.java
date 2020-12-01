@@ -33,7 +33,7 @@ public abstract class LibraryItem {
         this.publicationDate = publicationDate;
         this.publisher = publisher;
         this.topics = new ArrayList<>();
-        this.bio = null;
+        this.bio = "";
         this.iSBN = iSBN;
         this.timesRead = 0;
     }
@@ -59,27 +59,55 @@ public abstract class LibraryItem {
     }
 
 
-    //Getters
+    /**
+     * Method that gets ID.
+     * @return String ID.
+     */
 
     public int get_id() {
     return _id;
     }
 
+    /**
+     * Method that gets Name.
+     * @return String Name.
+     */
+
     public String getName() {
         return name;
     }
+
+    /**
+     * Method that gets Author.
+     * @return Author object.
+     */
 
     public Author getAuthor() {
         return author;
     }
 
+    /**
+     * Method that gets the publication date of the book.
+     * @return String publication date
+     */
+
     public String getPublicationDate() {
         return publicationDate;
     }
 
+    /**
+     * Method that gets the publisher of the book.
+     * @return String publisher.
+     */
+
     public String getPublisher() {
         return publisher;
     }
+
+    /**
+     * Method that gets an ArrayList&lt;String&gt; list of topics associated with the book.
+     * @return ArrayList&lt;String&gt;.
+     */
 
     public ArrayList<String> getTopics() {
         return topics;
@@ -91,58 +119,121 @@ public abstract class LibraryItem {
      */
 
     public String getTopicsAsString() {
-        String outputString = null;
+        String buildString = "";
         for(String string: this.topics) {
-            outputString += string + ", ";
+            buildString += string + ", ";
+        }
+        String outputString = "";
+        if(buildString != "") {
+            outputString = buildString.substring(0, buildString.length() - 2);
         }
         return outputString;
     }
+
+    /**
+     * Method that gets bio.
+     * @return String bio.
+     */
 
     public String getBio() {
         return bio;
     }
 
+    /**
+     * Method that gets the ISBN.
+     * @return String ISBN.
+     */
+
     public String getISBN() {
         return iSBN;
     }
+
+    /**
+     * Method that gets the times a book has been read.
+     * @return int times read.
+     */
 
     public int getTimesRead() {
         return timesRead;
     }
 
-    //Setters
+    /**
+     * Method that sets the ID.
+     * @param _id int ID.
+     */
 
     public void set_id(int _id) {
         this._id = _id;
     }
 
+    /**
+     * Method that sets the Name.
+     * @param name String Name.
+     */
+
     public void setName(String name) {
         this.name = name;
     }
+
+    /**
+     * Method that sets the Author.
+     * @param author String Author.
+     */
 
     public void setAuthor(Author author) {
         this.author = author;
     }
 
+    /**
+     * Method that sets the publication date.
+     * @param publicationDate String publication date.
+     */
+
     public void setPublicationDate(String publicationDate) {
         this.publicationDate = publicationDate;
     }
+
+    /**
+     * Method that sets the publisher.
+     * @param publisher String publisher.
+     */
 
     public void setPublisher(String publisher) {
         this.publisher = publisher;
     }
 
+    /**
+     * Method that sets an ArrayList&lt;String&gt; list of topics associated with the book.
+     * @param topics ArrayList&lt;String&gt;
+     */
+
     public void setTopics(ArrayList<String> topics) {
         this.topics = topics;
+
     }
+
+    /**
+     * Method that sets the bio.
+     * @param bio String bio
+     */
 
     public void setBio(String bio) {
         this.bio = bio;
     }
 
+    /**
+     * Method that sets the times the book has been read.
+     * @param timesRead int times the book has been read.
+     */
+
     public void setTimesRead(int timesRead) {
         this.timesRead = timesRead;
     }
+
+    /**
+     * Method that sets the ISBN.
+     * @param iSBN int ISBN.
+     */
 
     public void setISBN(String iSBN) {
         this.iSBN = iSBN;

@@ -20,6 +20,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+/**
+ * Class that controls the ViewAuthorBook page, initializes the data, controls the @FXML fields and actions.
+ */
+
 public class ViewAuthorController implements Initializable {
 
     @FXML private Label authorView;
@@ -34,17 +38,31 @@ public class ViewAuthorController implements Initializable {
     @FXML public TableColumn<LibraryItemModel, Boolean> availabilityCol;
     @FXML public TableColumn viewBookCol;
 
+    public ObservableList<LibraryItemModel> bookList = FXCollections.observableArrayList();
+    public DatabaseHandler handler;
 
+    /**
+     * Method that is called from other constructors and calls loadData.
+     * @param _authorId int author ID
+     */
 
     public void viewAuthor(int _authorId) {
-        System.out.println(_authorId);
         loadData(_authorId);
     }
 
-    ObservableList<LibraryItemModel> bookList = FXCollections.observableArrayList();
-    DatabaseHandler handler;
 
     @FXML private Label search;
+
+    /**
+     * Method that initialised the database handler.
+     * @param url Class {@code URL} represents a Uniform Resource
+     * Locator, a pointer to a "resource" on the World
+     * Wide Web.
+     * @param resourceBundle Resource bundles contain locale-specific objects.  When your program needs a
+     * locale-specific resource, a <code>String</code> for example, your program can
+     * load it from the resource bundle that is appropriate for the current user's
+     * locale.
+     */
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -55,8 +73,10 @@ public class ViewAuthorController implements Initializable {
         }
     }
 
-
-
+    /**
+     * Method that loads data retreived from the database about the author into fxml.
+     * @param _authorId
+     */
 
     private void loadData(int _authorId) {
 
@@ -109,10 +129,6 @@ public class ViewAuthorController implements Initializable {
                                 } catch (IOException | SQLException e) {
                                     e.printStackTrace();
                                 }
-//                                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//                                alert.setContentText("You have clicked \n " + bookModel.getName() + ", author: " + bookModel.getAuthor());
-//                                alert.show();
-
                             });
 
                             //now set button to cell
@@ -120,21 +136,16 @@ public class ViewAuthorController implements Initializable {
                         }
                         setText(null);
                     }
-
                 };
                 return cell;
             };
-
             viewBookCol.setCellFactory(cellFactory);
-
-
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
 
 
-        /** ################  Ebook section below  ################ **/
-
+        // ################  Ebook section below  ################ **/
 
 
         String sqlEBooks = "SELECT * FROM EBooks INNER JOIN Authors ON EBooks.author=Authors._authorId WHERE Authors._authorId=" + _authorId;
@@ -180,35 +191,27 @@ public class ViewAuthorController implements Initializable {
                                 } catch (IOException | SQLException e) {
                                     e.printStackTrace();
                                 }
-//                                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//                                alert.setContentText("You have clicked \n " + eBookModel.getName() + ", author: " + eBookModel.getAuthor());
-//                                alert.show();
-
                             });
-
                             //now set button to cell
                             setGraphic(viewEBookButton);
                         }
                         setText(null);
                     }
-
                 };
                 return cell;
             };
-
-
             viewBookCol.setCellFactory(cellFactory);
-
-
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
-
         tableView.getItems().setAll(bookList);
-
     }
 
-
+    /**
+     * Home route which creates new scene and links to the Home fxml file.
+     * @param actionEvent responds to an Action event.
+     * @throws IOException Signals that an I/O exception of some sort has occurred. This class is the general class of exceptions produced by failed or interrupted I/O operations.
+     */
 
     public void home(ActionEvent actionEvent) throws IOException {
         Parent createBookParent = FXMLLoader.load(getClass().getResource("fxmlFiles/Home.fxml"));
@@ -219,23 +222,35 @@ public class ViewAuthorController implements Initializable {
         window.show();
     }
 
+    /**
+     * Route to view book which creates a new ViewBook Scene, and passes the ID of the book chosen to the new scene.
+     * @param bookModel The Internal class with simple string properties used to represent a Book object.
+     * @throws IOException Signals that an I/O exception of some sort has occurred. This class is the general class of exceptions produced by failed or interrupted I/O operations.
+     * @throws SQLException An exception that provides information on a database access error or other errors.
+     */
+
     public void viewBook(LibraryItemModel bookModel) throws IOException, SQLException {
         String searchString = bookModel.getName();
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("fxmlFiles/ViewBook.fxml"));
 
-        Parent createBookParent = loader.load();
+        Parent viewBookParent = loader.load();
 
-        Scene createBookScene = new Scene(createBookParent);
+        Scene viewBookScene = new Scene(viewBookParent);
 
-        BookPageController newController = loader.getController();
+        BookPageController viewController = loader.getController();
 
-        newController.viewBook(bookModel.get_id());
+        viewController.viewBook(bookModel.get_id());
 
         Stage window = (Stage) root.getScene().getWindow();
-        window.setScene(createBookScene);
+        window.setScene(viewBookScene);
         window.show();
     }
+
+    /**
+     * Home route which creates new scene and links to the Home fxml file.
+     * @throws IOException Signals that an I/O exception of some sort has occurred. This class is the general class of exceptions produced by failed or interrupted I/O operations.
+     */
 
     public void home() throws IOException {
         Parent createBookParent = FXMLLoader.load(getClass().getResource("fxmlFiles/Home.fxml"));
@@ -254,7 +269,18 @@ public class ViewAuthorController implements Initializable {
         private SimpleStringProperty name, author, publisher, topics, availability;
         private int _id;
 
-        public LibraryItemModel(String name, String author, String publisher, String topics, String availability, int _id) {
+        /**
+         * The Class constructor, it accepts string parameters and parses them into simple strings.
+         * This is used to construct Physical Book object
+         * @param name The name of the Book.
+         * @param author The name of the Author.
+         * @param publisher The name of the publisher.
+         * @param topics The topics as a coma separated list of strings.
+         * @param availability The availability as a String.
+         * @param _id The unique ID of the book.
+         */
+
+        public LibraryItemModel(String name, String author, String publisher, String topics, String availability, int _id) { //PBook constructor
             this.name = new SimpleStringProperty(name);
             this.author = new SimpleStringProperty(author);
             this.publisher = new SimpleStringProperty(publisher);
@@ -263,7 +289,17 @@ public class ViewAuthorController implements Initializable {
             this._id = _id;
         }
 
-        public LibraryItemModel(String name, String author, String publisher, String topics, int _id) {
+        /**
+         * The Class constructor, it accepts string parameters and parses them into simple strings.
+         * This is used to construct EBook object
+         * @param name The name of the Book.
+         * @param author The name of the Author.
+         * @param publisher The name of the publisher.
+         * @param topics The topics as a coma separated list of strings.
+         * @param _id The unique ID of the book.
+         */
+
+        public LibraryItemModel(String name, String author, String publisher, String topics, int _id) { //EBook constructor
             this.name = new SimpleStringProperty(name);
             this.author = new SimpleStringProperty(author);
             this.publisher = new SimpleStringProperty(publisher);
@@ -272,34 +308,111 @@ public class ViewAuthorController implements Initializable {
             this._id = _id;
         }
 
+        /**
+         * Method to get the Name.
+         * @return String Name.
+         */
+
         public String getName() {
             return name.get();
         }
+
+        /**
+         * Method to get the Author.
+         * @return String Author.
+         */
 
         public String getAuthor() {
             return author.get();
         }
 
+        /**
+         * Method to get the Publisher.
+         * @return String Publisher.
+         */
 
         public String getPublisher() {
             return publisher.get();
         }
 
+        /**
+         * Method to get the Topics.
+         * @return String Topics.
+         */
 
         public String getTopics() {
             return topics.get();
         }
 
+        /**
+         * Method to get the Availability.
+         * @return String availability.
+         */
+
         public String getAvailability() {
             return availability.get();
         }
+
+        /**
+         * Method to get the ID.
+         * @return Stirng ID.
+         */
 
         public int get_id() {
             return _id;
         }
 
+        /**
+         * Method to set the ID.
+         * @param _id String ID.
+         */
         public void set_id(int _id) {
             this._id = _id;
+        }
+
+        /**
+         * Method to set the Name.
+         * @param name String Name.
+         */
+
+        public void setName(String name) {
+            this.name.set(name);
+        }
+
+        /**
+         * Method to set the Author.
+         * @param author String Author.
+         */
+
+        public void setAuthor(String author) {
+            this.author.set(author);
+        }
+
+        /**
+         * Method to set the Publisher.
+         * @param publisher String Publisher.
+         */
+
+        public void setPublisher(String publisher) {
+            this.publisher.set(publisher);
+        }
+
+        /**
+         * Method to set the Topics.
+         * @param topics String Topics.
+         */
+
+        public void setTopics(String topics) {
+            this.topics.set(topics);
+        }
+
+        /**
+         * Method to set the Availability.
+         * @param availability String Availability.
+         */
+
+        public void setAvailability(String availability) {
+            this.availability.set(availability);
         }
     }
 }

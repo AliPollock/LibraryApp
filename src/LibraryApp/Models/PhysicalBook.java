@@ -29,7 +29,7 @@ public class PhysicalBook extends LibraryItem {
         this.isOverdue = false;
         this.overDueCharge = 0;
         this.dueDate = null;
-        this.damages = null;
+        this.damages = "";
     }
 
     /**
@@ -41,7 +41,7 @@ public class PhysicalBook extends LibraryItem {
         String toString = "PhysicalBook{" +
                 "_id=" + get_id() +
                 ", name='" + getName() + '\'' +
-                ", author=" + getAuthor() +
+                ", author=" + getAuthor().getName() +
                 ", publicationDate='" + getPublicationDate() + '\'' +
                 ", publisher='" + getPublisher() + '\'' +
                 ", topics=" + getTopics() +
@@ -53,65 +53,122 @@ public class PhysicalBook extends LibraryItem {
                 ", overDueCharge=" + overDueCharge +
                 ", dueDate='" + dueDate + '\'' +
                 ", damages='" + damages + '\'';
-        if (availability()) {
-            toString += "currentUser=" + currentUser;
+        if (isOnLoan) {
+            toString += ", currentUser=" + currentUser;
         }
         return toString;
     }
 
-
-    //Getters
+    /**
+     * Method that gets if a book is overdue.
+     * @return boolean true if overdue.
+     */
 
     public boolean isOverdue() {
         return this.isOverdue;
     }
 
+    /**
+     * Method that gets the overdue charge.
+     * @return double overdue charge.
+     */
+
     public double getOverDueCharge() {
         return this.overDueCharge;
     }
 
+    /**
+     * Method that gets the date a book is due on.
+     * @return String due date.
+     */
 
     public String getDueDate() {
         return this.dueDate;
     }
 
+    /**
+     * Method that gets the current user of the book.
+     * @return the User object currently using the book.
+     */
+
     public User getCurrentUser() {
         return currentUser;
     }
+
+    /**
+     * Method that gets if the book is on loan.
+     * @return boolean true if the book is on loan.
+     */
 
     public boolean isOnLoan() {
         return isOnLoan;
     }
 
+    /**
+     * Method that gets a description of damages the book has.
+     * @return comma separated String of damages.
+     */
+
     public String getDamages() {
         return damages;
     }
 
-
-    //Setters
+    /**
+     * Method that sets the overdue charge associated with the book.
+     * @param overDueCharge double overdue charge.
+     */
 
     public void setOverDueCharge(double overDueCharge) {
         this.overDueCharge = overDueCharge;
     }
 
+    /**
+     * Method that sets if the book is overdue.
+     * @param overdue boolean true if the book is overdue.
+     */
+
     public void setOverdue(boolean overdue) {
         this.isOverdue = overdue;
     }
+
+    /**
+     * Method that sets the current user of the book.
+     * @param currentUser User object currently using the book.
+     */
 
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
     }
 
+    /**
+     * Method that sets if the book is on loan.
+     * @param onLoan boolean true if the book is on loan.
+     */
+
     public void setOnLoan(boolean onLoan) {
         isOnLoan = onLoan;
     }
+
+    /**
+     * Method that sets the due date of the the book.
+     * @param dueDate String due date.
+     */
 
     public void setDueDate(String dueDate) {
         this.dueDate = dueDate;
     }
 
+    /**
+     * Method that sets the damages associated with the book as a comma separated String.
+     * @param damages comma separated String of damages.
+     */
+
     public void setDamages(String damages) {
-        this.damages += damages + ", ";
+        if(this.damages.equals("")) {
+            this.damages +=  damages;
+        } else {
+            this.damages += ", " + damages;
+        }
     }
 
     /**
@@ -131,32 +188,17 @@ public class PhysicalBook extends LibraryItem {
     }
 
     /**
-     * Method that takes no parameters and determines boolean availability if there is a current user or not.
-     * @return A boolean, true if available.
-     */
-
-    public boolean availability() {
-        return this.currentUser == null;
-    }
-
-    /**
-     * Method that changes current user to the user given.
-     * @param currentUser The user of this book.
-     */
-
-    public void addCurrentUser(User currentUser) {
-        if (availability()) {
-            this.currentUser = currentUser;
-        } else {
-            System.out.println("book is currently on loan");
-        }
-    }
-
-    /**
      * Method that removes the current user and sets current user to null.
      */
     public void removeCurrentUser() {
         this.currentUser=null;
+    }
+
+    /**
+     * Method that deletes all damages.
+     */
+    public void removeDamages() {
+        this.damages ="";
     }
 
 }

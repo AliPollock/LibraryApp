@@ -36,10 +36,19 @@ public class AllBooksController implements Initializable {
     @FXML public TableColumn<BookModel, Boolean> availabilityCol;
     @FXML public TableColumn viewBookCol;
 
-    DatabaseHandler handler;
-    ObservableList<BookModel> bookList = FXCollections.observableArrayList();
+    public DatabaseHandler handler;
+    public ObservableList<BookModel> bookList = FXCollections.observableArrayList();
 
-
+    /**
+     * Method that initialised the database handler and calls loadData.
+     * @param url Class {@code URL} represents a Uniform Resource
+     * Locator, a pointer to a "resource" on the World
+     * Wide Web.
+     * @param resourceBundle Resource bundles contain locale-specific objects.  When your program needs a
+     * locale-specific resource, a <code>String</code> for example, your program can
+     * load it from the resource bundle that is appropriate for the current user's
+     * locale.
+     */
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -50,7 +59,6 @@ public class AllBooksController implements Initializable {
         }
         loadData();
     }
-
 
     /**
      * Method used to initialize table and fill with data for all books returned from Database
@@ -107,9 +115,6 @@ public class AllBooksController implements Initializable {
                                 } catch (IOException | SQLException e) {
                                     e.printStackTrace();
                                 }
-//                                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//                                alert.setContentText("You have clicked \n " + bookModel.getName() + ", author: " + bookModel.getAuthor());
-//                                alert.show();
 
                             });
 
@@ -133,7 +138,7 @@ public class AllBooksController implements Initializable {
 
     }
 
-    // routes
+    // Routes
 
     /**
      * Home route which creates new scene and links to the Home fxml file.
@@ -203,58 +208,109 @@ public class AllBooksController implements Initializable {
             this._id = _id;
         }
 
-        //Getters
+        /**
+         * Method to get the Name and return as a String.
+         * @return String Name.
+         */
 
         public String getName() {
             return name.get();
         }
 
+        /**
+         * Method to get the Author and return as a String.
+         * @return String Author
+         */
 
         public String getAuthor() {
             return author.get();
         }
 
+        /**
+         * Method to get the Publisher and return as a String.
+         * @return String Publisher.
+         */
 
         public String getPublisher() {
             return publisher.get();
         }
 
+        /**
+         * Method to get the Topics and return as a String.
+         * @return String Topics.
+         */
 
         public String getTopics() {
             return topics.get();
         }
 
+        /**
+         * Method to get the availability and return as a String.
+         * @return String availability.
+         */
 
         public String isAvailability() {
             return availability.get();
         }
 
+        /**
+         * Method to get the ID and return as a String.
+         * @return String ID.
+         */
 
         public int get_id() {
             return _id;
         }
 
-        //Setters
+        /**
+         * Method to set the Name.
+         * @param name String Name.
+         */
 
         public void setName(String name) {
             this.name.set(name);
         }
 
+        /**
+         * Method to set the Author.
+         * @param author String Author
+         */
+
         public void setAuthor(String author) {
             this.author.set(author);
         }
+
+        /**
+         * Method to set the Publisher.
+         * @param publisher String Publisher.
+         */
 
         public void setPublisher(String publisher) {
             this.publisher.set(publisher);
         }
 
+        /**
+         * Method to set the Topics.
+         * @param topics String Topics
+         */
+
         public void setTopics(String topics) {
             this.topics.set(topics);
         }
 
+        /**
+         * Method to set the Availability.
+         * @param availability String availability.
+         */
+
         public void setAvailability(String availability) {
             this.availability.set(availability);
         }
+
+        /**
+         * Method to set the ID.
+         * @param _id String ID.
+         */
 
         public void set_id(int _id) {
             this._id = _id;

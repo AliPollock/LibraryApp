@@ -35,7 +35,7 @@ public class EBook extends LibraryItem {
 
     @Override
     public String toString() {
-        return  "EBook{" +
+        return  "EBook {" +
                 "_id=" + get_id() +
                 ", name='" + getName() + '\'' +
                 ", author=" + getAuthor() +
@@ -45,40 +45,71 @@ public class EBook extends LibraryItem {
                 ", timesRead=" + getTimesRead() +
                 ", bio='" + getBio() + '\'' +
                 ", iSBN='" + getISBN() + '\'' +
-                "currentUsers=" + currentUsers +
+                ", currentUsers=" + currentUsers +
                 ", accessExpiresHours='" + accessExpiresHours + '\'' +
                 ", devices=" + devices +
                 '}';
     }
 
 
-    //Getters
+    /**
+     * Method that gets current number of users.
+     * @return int number of users.
+     */
 
     public int getCurrentUsers() {
         return currentUsers;
     }
 
+    /**
+     * Method that gets maximum number of users allowed.
+     * @return int maximum users.
+     */
+
     public static int getMaximumConcurrentUsers() {
         return maximumConcurrentUsers;
     }
+
+    /**
+     * Method that gets how many hours till the user's access expires.
+     * @return String number of hours till access expires.
+     */
 
     public String getAccessExpiresHours() {
         return accessExpiresHours;
     }
 
+    /**
+     * Method that gets an ArrayList&lt;Computer&gt; of computers.
+     * @return  ArrayList&lt;LibraryItem&gt;.
+     */
+
     public ArrayList<Computer> getDevices() {
         return devices;
     }
 
-    //Setters
+    /**
+     * Method that sets a count of the current users viewing the book.
+     * @param currentReaders int current users.
+     */
 
     public void setCurrentUsers(int currentReaders) {
         this.currentUsers = currentReaders;
     }
 
+    /**
+     * Method that sets the number of hours till access to an EBook expires.
+     * @param accessExpiresHours String hours till access expires.
+     */
+
     public void setAccessExpiresHours(String accessExpiresHours) {
         this.accessExpiresHours = accessExpiresHours;
     }
+
+    /**
+     * Method that sets ArrayList&lt;Computer&gt; of computers the EBook is available on.
+     * @param devices ArrayList&lt;Computer&gt;.
+     */
 
     public void setDevices(ArrayList<Computer> devices) {
         this.devices = devices;

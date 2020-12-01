@@ -34,7 +34,18 @@ public class CreateBookController implements Initializable {
     @FXML private TextField date;
     @FXML private TextField ISBN;
 
-    ObservableList editOptionsList = FXCollections.observableArrayList();
+    public ObservableList editOptionsList = FXCollections.observableArrayList();
+
+    /**
+     * Method that initialised the database handler.
+     * @param url Class {@code URL} represents a Uniform Resource
+     * Locator, a pointer to a "resource" on the World
+     * Wide Web.
+     * @param resourceBundle Resource bundles contain locale-specific objects.  When your program needs a
+     * locale-specific resource, a <code>String</code> for example, your program can
+     * load it from the resource bundle that is appropriate for the current user's
+     * locale.
+     */
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -45,11 +56,9 @@ public class CreateBookController implements Initializable {
         }
     }
 
-
-
     /**
      * Method takes the data from the fxml, checks if the author already exists in the database and if not creates a new one.
-     * It creates a new book in the database.
+     * Creates a new book in the database.
      * @param actionEvent An external stimulus from user interface.
      * @throws SQLException An exception that provides information on a database access error or other errors.
      * @throws IOException Signals that an I/O exception of some sort has occurred. This class is the general class of exceptions produced by failed or interrupted I/O operations.

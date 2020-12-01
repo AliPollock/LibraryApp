@@ -45,29 +45,55 @@ public class Author {
         return "(Author: " + name + ")";
     }
 
-    //Getters
+    /**
+     * Method that gets ID.
+     * @return int ID.
+     */
 
     public int get_id() {
         return _id;
     }
 
+    /**
+     * Method that gets Name.
+     * @return String Name.
+     */
+
     public String getName() {
         return name;
     }
+
+    /**
+     * Method that gets author works.
+     * @return ArrayList&lt;LibraryItem&gt; works by the author.
+     */
 
     public ArrayList<LibraryItem> getAuthorWorks() {
         return authorWorks;
     }
 
-    //Setters
+    /**
+     * Method that sets ID.
+     * @param _id int ID.
+     */
 
     public void set_id(int _id) {
         this._id = _id;
     }
 
+    /**
+     * Method that sets Name.
+     * @param name String Name.
+     */
+
     public void setName(String name) {
         this.name = name;
     }
+
+    /**
+     * Method that sets works by the author.
+     * @param authorWorks ArrayList&lt;LibraryItem&gt; works by the author.
+     */
 
     public void setAuthorWorks(ArrayList<LibraryItem> authorWorks) {
         this.authorWorks = authorWorks;

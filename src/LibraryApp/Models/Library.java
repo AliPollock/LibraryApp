@@ -81,88 +81,182 @@ public class Library {
     }
 
 
-
-    //Getters
+    /**
+     * Method that gets ID.
+     * @return int ID.
+     */
 
     public int get_id() {
         return _id;
     }
 
+    /**
+     * Method that gets Name.
+     * @return String Name.
+     */
 
     public String getName() {
         return this.name;
     }
 
+    /**
+     * Method that gets the ArrayList&lt;LibraryItem&gt; catalogue of Library items in the Library.
+     * @return ArrayList&lt;LibraryItem&gt;.
+     */
 
     public ArrayList<LibraryItem> getCatalogue() {
         return this.catalogue;
     }
 
+    /**
+     * Method that gets the ArrayList&lt;PhysicalBook&gt; catalogue of Physical Books in the Library.
+     * @return  ArrayList&lt;PhysicalBook&gt;.
+     */
+
+
     public ArrayList<PhysicalBook> getPhysicalCatalogue() {
         return this.physicalCatalogue;
     }
+
+    /**
+     * Method that gets the ArrayList&lt;EBook&gt;catalogue of EBooks in the library.
+     * @return ArrayList&lt;EBook&gt;.
+     */
 
     public ArrayList<EBook> getEBookCatalogue() {
         return eBookCatalogue;
     }
 
+    /**
+     * Method that gets ArrayList&lt;Admin&gt; list of Admins in the Library
+     * @return ArrayList&lt;Admin&gt;.
+     */
+
     public ArrayList<Admin> getAdmins() {
         return this.admins;
     }
+
+    /**
+     * Method that gets ArrayList&lt;User&gt; list of users in the Library.
+     * @return ArrayList&lt;User&gt;.
+     */
 
     public ArrayList<User> getUsers() {
         return this.users;
     }
 
+    /**
+     * Method that gets the opening hours of the library.
+     * @return String opening hours.
+     */
+
     public String getOpenHours() {
         return this.openHours;
     }
+
+    /**
+     * Method that gets the location of the library.
+     * @return String location.
+     */
 
     public String getLocation() {
         return this.location;
     }
 
+    /**
+     * Method that gets ArrayList&lt;Author&gt; list of Authors who have works in the Library.
+     * @return ArrayList&lt;Author&gt;.
+     */
+
     public ArrayList<Author> getAuthors() {
         return authors;
     }
 
-    //Setters
+    /**
+     * Method that sets ID
+     * @param _id int ID
+     */
 
     public void set_id(int _id) {
         this._id = _id;
     }
 
+    /**
+     * Method that sets Name.
+     * @param name String Name.
+     */
+
     public void setName(String name) {
         this.name = name;
     }
+
+    /**
+     * Method that sets the ArrayList&lt;LibraryItem&gt; catalogue of Library items in the Library.
+     * @param catalogue ArrayList&lt;LibraryItem&gt; catalogue
+     */
 
     public void setCatalogue(ArrayList<LibraryItem> catalogue) {
         this.catalogue = catalogue;
     }
 
+    /**
+     * Method that sets the ArrayList&lt;EBook&gt; catalogue of EBooks in the Library.
+     * @param eBookCatalogue ArrayList&lt;EBook&gt;.
+     */
+
     public void setEBookCatalogue(ArrayList<EBook> eBookCatalogue) {
         this.eBookCatalogue = eBookCatalogue;
     }
+
+    /**
+     * Method that sets the ArrayList&lt;PhysicalBooks&gt; catalogue of Physical Books in the Library.
+     * @param physicalCatalogue ArrayList&lt;PhysicalBooks&gt;
+     */
 
     public void setPhysicalCatalogue(ArrayList<PhysicalBook> physicalCatalogue) {
         this.physicalCatalogue = physicalCatalogue;
     }
 
+    /**
+     * Method that sets the ArrayList&lt;Admin&gt; list of Admins in the Library.
+     * @param admins ArrayList&lt;Admin&gt;.
+     */
+
     public void setAdmins(ArrayList<Admin> admins) {
         this.admins = admins;
     }
+
+    /**
+     * Method that sets the ArrayList&lt;User&gt; list of Users in the Library.
+     * @param users ArrayList&lt;User&gt;.
+     */
 
     public void setUsers(ArrayList<User> users) {
         this.users = users;
     }
 
+    /**
+     * Method that sets opening hours of the Library.
+     * @param openHours String opening hours.
+     */
+
     public void setOpenHours(String openHours) {
         this.openHours = openHours;
     }
 
+    /**
+     * Method that sets location of the Library.
+     * @param location String location.
+     */
+
     public void setLocation(String location) {
         this.location = location;
     }
+
+    /**
+     * Method that sets the ArrayList&lt;Author&gt; list of Authors with works in the Library.
+     * @param authors ArrayList&lt;Author&gt;
+     */
 
     public void setAuthors(ArrayList<Author> authors) {
         this.authors = authors;
@@ -266,6 +360,7 @@ public class Library {
         } return books;
     }
 
+
     /**
      * Takes a String and Returns a boolean if an item exists that corresponds to the ISBN string provided.
      * @param iSBN  The ISBN number of the book that is being searched for.
@@ -316,7 +411,7 @@ public class Library {
     }
 
     /**
-     Takes an Ebook object and removes from Ebook ArrayList and main catalogue if it is present already. Prints error if
+     * Takes an Ebook object and removes from Ebook ArrayList and main catalogue if it is present already. Prints error if
      * item is not present.
      * @param ebook The eBook that is being removed.
      */
@@ -328,6 +423,23 @@ public class Library {
         } else {
             System.out.println("Ebook object not found in catalogue");
         }
+    }
+
+    /**
+     * Takes an int ID and removes corresponding item from EBook catalogue.
+     * @param _id int ID.
+     */
+
+    public void removeEBook(int _id) {
+        ArrayList<EBook> books = new ArrayList<>();
+        for(EBook book: eBookCatalogue) {
+            if(book.get_id() == _id){
+                books.add(book);
+            }
+        }
+        try {
+            this.eBookCatalogue.remove(books.get(0));
+        } catch (IndexOutOfBoundsException e){}
     }
 
     /**
@@ -361,7 +473,25 @@ public class Library {
     }
 
     /**
-     * Takes an int and removes item at that index int he main catalogue. If the index is not present, an error will be printed.
+     * Takes an int ID and removes corresponding item from Physical Book catalogue.
+     * @param _id int ID.
+     */
+
+    public void removePhysicalBook(int _id) {
+        ArrayList<PhysicalBook> books = new ArrayList<>();
+        for(PhysicalBook book: physicalCatalogue) {
+            if(book.get_id() == _id){
+                books.add(book);
+            }
+        }
+        try {
+            this.physicalCatalogue.remove(books.get(0));
+        } catch (IndexOutOfBoundsException e){}
+    }
+
+    /**
+     * Takes an int and removes item at that index in the main catalogue. If the index is not present, an error will be printed.
+     * Also removes item from either the PhysicalBook catalogue or the Ebook catalogue depending on the type.
      * @param index The index of he Book that is being added.
      */
 
@@ -370,6 +500,12 @@ public class Library {
         try {
             item = catalogue.get(index);
             catalogue.remove(item);
+
+            if (item instanceof PhysicalBook){
+                removePhysicalBook(item.get_id());
+            } else {
+                removeEBook(item.get_id());
+            }
         }
         catch (IndexOutOfBoundsException e) {
             System.out.println("No object at this index");
@@ -504,6 +640,7 @@ public class Library {
     public void stopViewingEBook(EBook book, User reader){
         if(catalogue.contains(book)) {
             book.removeCurrentReader();
+            reader.returnBook(book);
         } else {
             System.out.println("Item not found in catalogue");
         }
@@ -543,5 +680,17 @@ public class Library {
         }
     }
 
+    /**
+     * Method that adds user to the userList if the list doesn't contain the user already.
+     * @param user The user being added to the list.
+     */
+
+    public void addUser(User user) {
+        if (this.users.contains(user)) {
+            System.out.println("User is already in the database");
+        } else {
+            this.users.add(user);
+        }
+    }
 
 }
