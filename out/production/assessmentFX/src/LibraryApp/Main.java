@@ -35,22 +35,7 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-//        launch(args);
-        System.out.println("Hi there");
-        Computer computer = new Computer();
-        System.out.println(computer.toString());
-        Author author = new Author("Michael Kolling");
-        EBook ebook = new EBook("Bluej", author, "2016", "Pearson", "12345");
-        Student student = new Student("testUsername", "password");
-
-        PhysicalBook book = new PhysicalBook("Bluej", author, "2016", "Pearson", "12345");
-        Library library = new Library("Strathclyde", "8-11", "Glasgow");
-        System.out.println(student);
-        student.setNotifications("first notification, second not");
-        student.printNotifications();
-        book.setTopicsCSV("one topic, two topics");
-        System.out.println(book.getTopicsAsString());
-
+        launch(args);
     }
 
 

@@ -37,6 +37,7 @@ public class ResultsController implements Initializable {
     @FXML public TableColumn<LibraryItemModel, String> topicsCol;
     @FXML public TableColumn<LibraryItemModel, Boolean> availabilityCol;
     @FXML public TableColumn viewBookCol;
+    @FXML private TextField newSearch;
 
     public ObservableList<LibraryItemModel> bookList = FXCollections.observableArrayList();
     public DatabaseHandler handler;
@@ -221,6 +222,32 @@ public class ResultsController implements Initializable {
             }
         }
         tableView.getItems().setAll(bookList);
+    }
+
+    //Routes
+
+    /**
+     * Route that creates new Results scene and links to the fxml file.
+     * @throws IOException Signals that an I/O exception of some sort has occurred. This class is the general class of exceptions produced by failed or interrupted I/O operations.
+     */
+
+    @FXML
+    public void search() throws IOException {
+        String searchString = this.newSearch.getText();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("fxmlFiles/Results.fxml"));
+
+        Parent resultsParent = loader.load();
+
+        Scene resultsScene = new Scene(resultsParent);
+
+        ResultsController resultsController = loader.getController();
+
+        resultsController.setSearch(this.newSearch.getText());
+
+        Stage window = (Stage) root.getScene().getWindow();
+        window.setScene(resultsScene);
+        window.show();
     }
 
     /**

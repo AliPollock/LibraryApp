@@ -109,7 +109,6 @@ public class HomeController implements Initializable {
 
     @FXML
     public void search() throws IOException {
-        String searchString = this.search.getText();
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("fxmlFiles/Results.fxml"));
 
@@ -205,13 +204,4 @@ public class HomeController implements Initializable {
         window.show();
     }
 
-    /**
-     * Route to editEBook.
-     * @param actionEvent responds to an Action event.
-     */
-
-    //**********************delete this method and fxml on home page.
-
-    public void editEBook(ActionEvent actionEvent) {
-    }
 }

@@ -35,6 +35,7 @@ public class AllBooksController implements Initializable {
     @FXML public TableColumn<BookModel, String> topicsCol;
     @FXML public TableColumn<BookModel, Boolean> availabilityCol;
     @FXML public TableColumn viewBookCol;
+    @FXML private TextField search;
 
     public DatabaseHandler handler;
     public ObservableList<BookModel> bookList = FXCollections.observableArrayList();
@@ -139,6 +140,30 @@ public class AllBooksController implements Initializable {
     }
 
     // Routes
+
+    /**
+     * Route that creates new Results scene and links to the fxml file.
+     * @throws IOException Signals that an I/O exception of some sort has occurred. This class is the general class of exceptions produced by failed or interrupted I/O operations.
+     */
+
+    @FXML
+    public void search() throws IOException {
+        String searchString = this.search.getText();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("fxmlFiles/Results.fxml"));
+
+        Parent resultsParent = loader.load();
+
+        Scene resultsScene = new Scene(resultsParent);
+
+        ResultsController resultsController = loader.getController();
+
+        resultsController.setSearch(this.search.getText());
+
+        Stage window = (Stage) root.getScene().getWindow();
+        window.setScene(resultsScene);
+        window.show();
+    }
 
     /**
      * Home route which creates new scene and links to the Home fxml file.

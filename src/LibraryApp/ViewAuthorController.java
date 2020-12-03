@@ -26,10 +26,10 @@ import java.util.ResourceBundle;
 
 public class ViewAuthorController implements Initializable {
 
-    @FXML private Label authorView;
 
+    @FXML private Label search;
+    @FXML private Label authorNameLabel;
     @FXML private Parent root;
-
     @FXML public TableView<LibraryItemModel> tableView;
     @FXML public TableColumn<LibraryItemModel, String> nameCol;
     @FXML public TableColumn<LibraryItemModel, String> authorCol;
@@ -51,7 +51,6 @@ public class ViewAuthorController implements Initializable {
     }
 
 
-    @FXML private Label search;
 
     /**
      * Method that initialised the database handler.
@@ -75,7 +74,7 @@ public class ViewAuthorController implements Initializable {
 
     /**
      * Method that loads data retreived from the database about the author into fxml.
-     * @param _authorId
+     * @param _authorId int author ID.
      */
 
     private void loadData(int _authorId) {
@@ -98,14 +97,17 @@ public class ViewAuthorController implements Initializable {
                     availability += "On Loan";
                 }
 
-                bookList.add(new LibraryItemModel(name, author, publisher, topics, availability, _id));
-            }
+                LibraryItemModel itemInstance= new LibraryItemModel(name, author, publisher, topics, availability, _id);
+                bookList.add(itemInstance);
 
+            authorNameLabel.setText(itemInstance.getAuthor());
             nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
             authorCol.setCellValueFactory(new PropertyValueFactory<>("author"));
             publisherCol.setCellValueFactory(new PropertyValueFactory<>("publisher"));
             topicsCol.setCellValueFactory(new PropertyValueFactory<>("topics"));
             availabilityCol.setCellValueFactory(new PropertyValueFactory<>("availability"));
+
+            }
 
             Callback<TableColumn<LibraryItemModel, String>, TableCell<LibraryItemModel, String>> cellFactory =(param) -> {
 
@@ -265,7 +267,7 @@ public class ViewAuthorController implements Initializable {
      * This is the inner class that will display book values in a table
      **/
 
-    public class LibraryItemModel {
+    public static class LibraryItemModel {
         private SimpleStringProperty name, author, publisher, topics, availability;
         private int _id;
 

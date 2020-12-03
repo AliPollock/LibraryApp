@@ -9,10 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -41,6 +38,7 @@ public class AllLibraryItemsController implements Initializable {
     @FXML public TableColumn<LibraryItemModel, String> topicsCol;
     @FXML public TableColumn<LibraryItemModel, Boolean> availabilityCol;
     @FXML public TableColumn viewBookCol;
+    @FXML private TextField search;
 
     public DatabaseHandler handler;
 
@@ -204,6 +202,30 @@ public class AllLibraryItemsController implements Initializable {
 
 
     // Routes
+
+    /**
+     * Route that creates new Results scene and links to the fxml file.
+     * @throws IOException Signals that an I/O exception of some sort has occurred. This class is the general class of exceptions produced by failed or interrupted I/O operations.
+     */
+
+    @FXML
+    public void search() throws IOException {
+        String searchString = this.search.getText();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("fxmlFiles/Results.fxml"));
+
+        Parent resultsParent = loader.load();
+
+        Scene resultsScene = new Scene(resultsParent);
+
+        ResultsController resultsController = loader.getController();
+
+        resultsController.setSearch(this.search.getText());
+
+        Stage window = (Stage) root.getScene().getWindow();
+        window.setScene(resultsScene);
+        window.show();
+    }
 
     /**
      * Home route which creates new scene and links to the Home fxml file.

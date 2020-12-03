@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 /**
@@ -115,7 +117,7 @@ public class CheckOutBookController implements Initializable {
     }
 
     /**
-     * Method that checks out book, updates database and calls cancel method to reroute to book page.
+     * Method that checks out book, updates database with onLoan status, times the book has been read, due date, current user and calls cancel method to reroute to the book page.
      * @param actionEvent An external stimulus from user interface.
      * @throws IOException Signals that an I/O exception of some sort has occurred. This class is the general class of exceptions produced by failed or interrupted I/O operations.
      * @throws SQLException An exception that provides information on a database access error or other errors.
@@ -154,6 +156,17 @@ public class CheckOutBookController implements Initializable {
             }
             timesReadResults.close();
 
+            Date date = new Date();
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            String dateString = formatter.format(date);
+            System.out.println(dateString);
+
+            // Line used to input dummy checkout dates into database
+//            String dateString = "02/08/2020";
+
+            String sqlDateAction = "UPDATE PBooks SET dueDate='" + dateString + "' WHERE _id=" + this._id;
+            handler.execAction(sqlDateAction);
+
             sqlTimesRead++;
             String sqlTimesReadAction = "UPDATE PBooks SET timesRead=" + sqlTimesRead + " WHERE _id=" + this._id;
             handler.execAction(sqlTimesReadAction);
@@ -169,8 +182,6 @@ public class CheckOutBookController implements Initializable {
             alert.setContentText("Book has been checked out by " + username.getText() + ".");
             alert.show();
 
-
-            ///still need to set due date here ####################################################################################################
 
         } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

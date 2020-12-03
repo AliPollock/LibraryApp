@@ -7,7 +7,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="javaFX-11" level="application" />
+    <orderEntry type="library" exported="" name="javaFX-11" level="application" />
     <orderEntry type="module-library" exported="">
       <library name="JUnit5.4">
         <CLASSES>
@@ -34,6 +34,8 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="sqlite-jdbc-3.32.3.2" level="project" />
+    <orderEntry type="library" name="sqlite-jdbc-3.32.3.21" level="project" />
+    <orderEntry type="library" name="javafx-swt" level="application" />
+    <orderEntry type="library" name="fontawesomefx-8.9" level="project" />
   </component>
 </module>

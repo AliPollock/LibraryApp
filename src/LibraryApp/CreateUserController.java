@@ -93,6 +93,18 @@ public class CreateUserController implements Initializable {
                         "VALUES(" + user.get_userId() + ", '" + user.getName() + "', '" + user.getPassword() + "', " + 0 + ", " + user.getLibraryFees() + ", 'admin')";
                 DatabaseHandler.getInstance().execAction(sqlString);
                 cancel();
+            } else if (userType == "Guest") {
+                Admin user = new Admin(usernameText, passwordText);
+                String sqlString = "INSERT INTO Users (_userId, userName, password, isAdmin, libraryFees, type)" +
+                        "VALUES(" + user.get_userId() + ", '" + user.getName() + "', '" + user.getPassword() + "', " + 0 + ", " + user.getLibraryFees() + ", 'guest')";
+                DatabaseHandler.getInstance().execAction(sqlString);
+                cancel();
+            } else if (userType == "Staff") {
+                Admin user = new Admin(usernameText, passwordText);
+                String sqlString = "INSERT INTO Users (_userId, userName, password, isAdmin, libraryFees, type)" +
+                        "VALUES(" + user.get_userId() + ", '" + user.getName() + "', '" + user.getPassword() + "', " + 0 + ", " + user.getLibraryFees() + ", 'staff')";
+                DatabaseHandler.getInstance().execAction(sqlString);
+                cancel();
             }
         }
     }
@@ -133,8 +145,10 @@ public class CreateUserController implements Initializable {
     private void loadEditOptions() {
         String admin = "Admin";
         String student = "Student";
+        String guest = "Guest";
+        String staff = "Staff";
 
-        userTypeOptions.getItems().addAll(admin, student);
+        userTypeOptions.getItems().addAll(admin, student, guest, staff);
         userTypeOptions.setValue(student);
 
     }

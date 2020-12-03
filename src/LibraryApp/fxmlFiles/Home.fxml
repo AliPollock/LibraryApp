@@ -1,53 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="403.0" prefWidth="817.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LibraryApp.HomeController">
-   <top>
-       <MenuBar>
-           <Menu text="Add New">
-               <MenuItem onAction="#createBook" text="Physical Book" />
-               <SeparatorMenuItem />
-               <MenuItem onAction="#createEBook" text="EBook" />
-               <SeparatorMenuItem />
-               <MenuItem onAction="#addUser" text="User" />
-           </Menu>
-           <Menu text="Edit">
-               <MenuItem onAction="#editBook" text="Physical Book" />
-               <SeparatorMenuItem />
-               <MenuItem onAction="#editEBook" text="EBook" />
-               <SeparatorMenuItem />
-               <MenuItem text="Library" />
-           </Menu>
-           <Menu text="Show">
-               <MenuItem onAction="#showAllBooks" text="All Physical Books" />
-               <SeparatorMenuItem />
-               <MenuItem onAction="#showAllEBooks" text="All EBooks" />
-               <SeparatorMenuItem />
-               <MenuItem onAction="#showAllLibraryItems" text="All Library Items" />
-               <SeparatorMenuItem />
-               <MenuItem onAction="#showAllUsers" text="All Users" />
-           </Menu>
-       </MenuBar>
-   </top>
-   <left>
-      <ListView>
-      </ListView>
-   </left>
-    <center>
-        <TextArea fx:id="bookDetailsTextArea" />
-    </center>
 
    <bottom>
-        <VBox>
-           <children>
-              <Button mnemonicParsing="false" onAction="#search" text="Search" BorderPane.alignment="CENTER">
-                 <graphic>
-                    <TextField fx:id="search" />
-                 </graphic>
-              </Button>
-           </children>
-        </VBox>
+        <VBox />
    </bottom>
+   <center>
+        <Button mnemonicParsing="false" onAction="#search" prefHeight="39.0" prefWidth="215.0" text="Search" BorderPane.alignment="CENTER">
+           <graphic>
+              <TextField fx:id="search" alignment="CENTER" layoutY="50.0" />
+           </graphic>
+         <BorderPane.margin>
+            <Insets bottom="100.0" />
+         </BorderPane.margin>
+        </Button>
+   </center>
+   <left>
+      <VBox prefHeight="314.0" prefWidth="186.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" onAction="#createBook" prefHeight="25.0" prefWidth="140.0" text="Create Book">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="20.0" top="50.0" />
+               </VBox.margin></Button>
+            <Button mnemonicParsing="false" onAction="#createEBook" prefHeight="25.0" prefWidth="140.0" text="Create EBook">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="20.0" top="10.0" />
+               </VBox.margin></Button>
+            <Button mnemonicParsing="false" onAction="#addUser" prefHeight="25.0" prefWidth="140.0" text="Add User">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="20.0" top="10.0" />
+               </VBox.margin></Button>
+         </children>
+         <BorderPane.margin>
+            <Insets left="20.0" />
+         </BorderPane.margin>
+      </VBox>
+   </left>
+   <top>
+      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="89.0" prefWidth="200.0" text="Library App Home" textAlignment="CENTER" BorderPane.alignment="CENTER">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+   </top>
+   <right>
+      <VBox prefHeight="314.0" prefWidth="179.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" onAction="#showAllBooks" prefHeight="25.0" prefWidth="140.0" text="Show All Books">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="20.0" top="30.0" />
+               </VBox.margin></Button>
+            <Button mnemonicParsing="false" onAction="#showAllEBooks" prefHeight="25.0" prefWidth="140.0" text="Show All EBooks">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="20.0" top="10.0" />
+               </VBox.margin></Button>
+            <Button mnemonicParsing="false" onAction="#showAllLibraryItems" prefHeight="25.0" prefWidth="140.0" text="Show All Library Items">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="20.0" top="10.0" />
+               </VBox.margin></Button>
+            <Button maxWidth="140.0" mnemonicParsing="false" onAction="#showAllUsers" text="Show All Users">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="20.0" top="10.0" />
+               </VBox.margin></Button>
+         </children>
+         <BorderPane.margin>
+            <Insets right="20.0" />
+         </BorderPane.margin>
+      </VBox>
+   </right>
 </BorderPane>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -17,14 +18,24 @@
                   <TableColumn fx:id="publisherCol" prefWidth="75.0" text="Publisher" />
                   <TableColumn fx:id="topicsCol" prefWidth="75.0" text="Topics" />
                   <TableColumn fx:id="availabilityCol" prefWidth="75.0" text="Availability" />
-                  <TableColumn fx:id="viewBookCol" prefWidth="75.0"/>
+                  <TableColumn fx:id="viewBookCol" prefWidth="75.0" />
                </columns>
             </TableView>
          </center>
          <top>
-            <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="TOP_CENTER">
+            <ButtonBar prefHeight="51.0" prefWidth="471.0" BorderPane.alignment="TOP_CENTER">
                <buttons>
-                  <Button mnemonicParsing="false" onAction="#home" text="Home" ButtonBar.buttonData="LEFT" />
+                  <Button maxWidth="100.0" mnemonicParsing="false" onAction="#home" prefHeight="25.0" prefWidth="100.0" text="Home" translateX="40.0" ButtonBar.buttonData="LEFT" />
+                  <Label maxWidth="224.0" prefHeight="17.0" prefWidth="224.0" text="Showing All Physical Books">
+                     <padding>
+                        <Insets left="15.0" />
+                     </padding>
+                  </Label>
+                  <Button mnemonicParsing="false" onAction="#search" prefHeight="33.0" text="Search" translateX="-40.0" BorderPane.alignment="CENTER">
+                     <graphic>
+                        <TextField fx:id="search" />
+                     </graphic>
+                  </Button>
                </buttons>
             </ButtonBar>
          </top>

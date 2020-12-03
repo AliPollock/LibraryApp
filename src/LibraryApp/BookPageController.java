@@ -8,13 +8,18 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 /**
@@ -197,7 +202,13 @@ public class BookPageController implements Initializable {
                     loanStatusLabel.setText("View Online");
 
                     checkOut.setText("View Online");
-                    checkOut.setOnAction( e -> viewBookOnline());
+                    checkOut.setOnAction( e -> {
+                        try {
+                            viewBookOnline();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                    });
 
                 }
             } catch (SQLException exception) {
@@ -211,8 +222,91 @@ public class BookPageController implements Initializable {
      * Method that allows user to view Ebook online
      */
 
-    private void viewBookOnline() {
-        System.out.println("view book online clicked");
+    private void viewBookOnline() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("fxmlFiles/ViewEBook.fxml"));
+
+        Parent viewEBookParent = loader.load();
+
+        Scene viewEBookScene = new Scene(viewEBookParent);
+
+        ViewEBookController viewEBookController = loader.getController();
+
+        viewEBookController.loadData(this._id);
+
+        Stage window = (Stage) root.getScene().getWindow();
+        window.setScene(viewEBookScene);
+        window.show();
+    }
+
+    /**
+     * Method that calculates the number of days a book is overdue.
+     * @param dueDateString The due date in the format: dd/mm/yyyy.
+     * @return The number of days late a book is.
+     */
+
+    public double feeCalculator(String dueDateString) {
+
+        // list of days in each month where index is the month of the year
+        int[] monthDays = {0,31,28,31,30,31,30,31,31,30,31,30,31}; //zero at the beginning because there is no zeroth month
+
+        //current date
+        Date currentDate = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        String currentDateString = formatter.format(currentDate);
+
+        int currentDays = Integer.parseInt(currentDateString.substring(0,2));
+        int dueDays = Integer.parseInt(dueDateString.substring(0,2));
+
+        int currentMonths = Integer.parseInt(currentDateString.substring(3,5));
+        int dueMonths = Integer.parseInt(dueDateString.substring(3,5));
+
+        int currentYears = Integer.parseInt(currentDateString.substring(6,10));
+        int dueYears = Integer.parseInt(dueDateString.substring(6,10));
+
+        double total = 0;
+        if(dueYears > currentYears) { // not due till next year
+            return 0.0;
+        } else if( dueYears == currentYears) { // year is the same
+
+            if(dueMonths > currentMonths) { // dueMonth > current Month - not due yet
+                return 0.0;
+
+            } else if (dueMonths  < currentMonths) { // dueMonth < currentMonth - overdue
+                for (int i = dueMonths +1; i <currentMonths; i++) {
+                    total += monthDays[i]; // day in months between two months
+                }
+                total += monthDays[dueMonths] - dueDays; // days till end of due month
+                total += currentDays; //days in the current month
+
+            } else { // Month is the same
+
+                if (dueDays == currentDays) {
+                    return 0.0;
+                } else if (dueDays > currentDays) {
+                    return 0.0;
+                } else {
+                    return currentDays-dueDays;
+                }
+            }
+
+        } else { // dueYear < currentYear - overdue
+
+            //days till the end of the due year
+            total += monthDays[dueMonths] - dueDays; //days till end of the due month
+
+            for(int i = dueMonths+1; i < 13; i++) { // days in months between due months and end of the year
+                total += monthDays[i];
+            }
+
+            //days into the current year
+            total+= currentDays; // days into current month
+
+            for(int i = 0; i< currentMonths; i++) { // days in months between year start and current month
+                total += monthDays[i];
+            }
+        }
+        return total;
     }
 
     /**
@@ -228,11 +322,17 @@ public class BookPageController implements Initializable {
         ResultSet results = handler.execQuery("SELECT * FROM PBooks WHERE _id=" + this._id);
         try{
             while (results.next()) {
-                Double overDueFee = results.getDouble("overDueCharge");
+                String dueDate = results.getString("dueDate");
+
+                Double overDueFee = feeCalculator(dueDate);
 
                 if (overDueFee != 0.0) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setContentText("There is an overdue charge of " + overDueFee + " associated with this book, please ensure this has been paid.");
+                    alert.setContentText("There is an overdue charge of " + overDueFee + " pounds associated with this book, please ensure this has been paid.");
+                    alert.show();
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setContentText("Book has been returned.");
                     alert.show();
                 }
             }
@@ -240,6 +340,7 @@ public class BookPageController implements Initializable {
             throwables.printStackTrace();
         }
 
+        //SQL return actions
 
         String sqlLoanAction = "UPDATE PBooks SET isOnLoan=" + 0 + " WHERE _id=" + this._id;
         boolean loanAction = handler.execAction(sqlLoanAction);
@@ -247,10 +348,13 @@ public class BookPageController implements Initializable {
         String sqlUserAction = "UPDATE PBooks SET currentUser = " + null + " WHERE _id=" + this._id;
         boolean userAction = handler.execAction(sqlUserAction);
 
-        String sqlFeeAction = "UPDATE PBooks SET isOnLoan = 0.0 WHERE _id=" + this._id;
+        String sqlFeeAction = "UPDATE PBooks SET overDueCharge = 0.0 WHERE _id=" + this._id;
         boolean feeAction = handler.execAction(sqlFeeAction);
 
-        if (!feeAction||!userAction||!loanAction) {
+        String sqlDueAction = "UPDATE PBooks SET dueDate = '' WHERE _id=" + this._id;
+        boolean dueAction = handler.execAction(sqlDueAction);
+
+        if (!feeAction||!userAction||!loanAction||!dueAction) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Error returning book");
             alert.show();
