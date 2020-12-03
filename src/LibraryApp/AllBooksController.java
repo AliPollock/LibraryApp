@@ -148,7 +148,6 @@ public class AllBooksController implements Initializable {
 
     @FXML
     public void search() throws IOException {
-        String searchString = this.search.getText();
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("fxmlFiles/Results.fxml"));
 
@@ -188,7 +187,6 @@ public class AllBooksController implements Initializable {
      */
 
     public void viewBook(BookModel bookModel) throws IOException, SQLException {
-        String searchString = bookModel.getName();
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("fxmlFiles/ViewBook.fxml"));
 

@@ -427,4 +427,12 @@ public abstract class User {
     public void clearNotifications(){
         this.notifications.clear();
     }
+
+    /**
+     * Method that prints details of object.
+     */
+
+    public void printDetails(){
+        System.out.println(toString());
+    }
 }

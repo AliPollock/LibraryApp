@@ -37,7 +37,6 @@ public class Computer {
      * @return String object representation.
      */
 
-    @Override
     public String toString() {
         return "Computer {" +
                 "_id=" + _id +
@@ -156,6 +155,14 @@ public class Computer {
         } else {
             return false;
         }
+    }
+
+    /**
+     * Method that prints details of object.
+     */
+
+    public void printDetails(){
+        System.out.println(toString());
     }
 
 }

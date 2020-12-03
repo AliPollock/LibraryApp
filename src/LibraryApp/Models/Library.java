@@ -693,4 +693,12 @@ public class Library {
         }
     }
 
+    /**
+     * Method that prints details of the Library.
+     */
+
+    public void printLibraryDetails(){
+        System.out.println(toString());
+    }
+
 }

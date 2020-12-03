@@ -259,4 +259,12 @@ public abstract class LibraryItem {
     public void incrementTimesRead() {
         this.timesRead += 1;
     }
+
+    /**
+     * Method that prints details of the Book.
+     */
+
+    public void printDetails() {
+        System.out.println(toString());
+    }
 }

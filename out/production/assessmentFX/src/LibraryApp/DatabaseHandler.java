@@ -23,6 +23,7 @@ public final class DatabaseHandler {
     private DatabaseHandler() throws SQLException {
 //        clearDatabase();
         createConnection();
+//        createComputers();
         conn = DriverManager.getConnection("jdbc:sqlite:C:\\assessmentFX\\db\\library.db");
     }
 
@@ -59,7 +60,7 @@ public final class DatabaseHandler {
                     "(_eBookId INTEGER PRIMARY KEY, name TEXT, author TEXT, publicationDate TEXT, publisher TEXT, topics TEXT, timesRead INTEGER, bio TEXT," +
                     "isbn TEXT, currentUsers INTEGER, accessExpiresHours TEXT)");
             statement.execute("CREATE TABLE IF NOT EXISTS Computers " +
-                    "(_computerId INTEGER PRIMARY KEY, isInUse INTEGER, location TEXT)");
+                    "(_computerId INTEGER PRIMARY KEY, computerName TEXT, isInUse INTEGER, location TEXT, numberBeingUsed INTEGER)");
             statement.execute("CREATE TABLE IF NOT EXISTS Users " +
                     "(_userId INTEGER PRIMARY KEY, userName TEXT, password TEXT, isAdmin INTEGER, libraryFees REAL, type TEXT)");
             statement.close();
@@ -87,6 +88,18 @@ public final class DatabaseHandler {
             conn.close();
         } catch(SQLException e) {
             System.out.println("error connecting to the database, database already exists, ensure app folder is in the C root folder of the C drive");
+        }
+    }
+
+    public void createComputers(){
+        for(int i = 1; i <= 20; i++) {
+            int randInt = (int) (Math.random()*1000*(Math.random()*1000*i));
+
+            String sqlString = "INSERT INTO Computers (_computerId, computerName, isInUse, location, numberBeingUsed)" +
+                    "VALUES(" + randInt + ", 'computer" + i + "', 0, 'Computer Desk " + i + "', 0)";
+
+
+            execAction(sqlString);
         }
     }
 

@@ -139,7 +139,11 @@ public class EBook extends LibraryItem {
      */
 
     public void addDevice(Computer computer) {
-        this.devices.add(computer);
+        if(this.devices.contains(computer)) {
+            System.out.println("This list already contains the device");
+        } else {
+            this.devices.add(computer);
+        }
     }
 
     /**
@@ -150,5 +154,6 @@ public class EBook extends LibraryItem {
     public void removeDevice(Computer computer) {
         this.devices.remove(computer);
     }
+
 
 }
